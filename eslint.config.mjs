@@ -12,7 +12,7 @@ export default tseslint.config(
       "sort-keys": [
         "error",
         "asc",
-        { caseSensitive: false, natural: false, minKeys: 2 },
+        { caseSensitive: false, minKeys: 2, natural: false },
       ],
     },
   },
