@@ -1,18 +1,20 @@
 import Select from "react-select";
 import { View, Text } from "react-native";
 
-interface SelectorProps {
+interface SelectorProps<T> {
   title: string;
-  onSelect: (item: string) => void;
-  options: string[];
-  value: string | null;
+  onSelect: (item: T) => void;
+  options: T[];
+  value: T | null;
 }
 
-function Selector(props: SelectorProps) {
+type SelectorOption_t<T> = { label: string; value: T };
+
+function Selector<T>(props: SelectorProps<T>) {
   const { title, onSelect, options, value } = props;
 
-  const formattedOptions = options.map((option) => ({
-    label: option,
+  const formattedOptions: SelectorOption_t<T>[] = options.map((option) => ({
+    label: `${option}`,
     value: option,
   }));
 
@@ -30,7 +32,11 @@ function Selector(props: SelectorProps) {
       </View>
       <Select
         options={formattedOptions}
-        value={value ? { label: value, value } : undefined}
+        value={
+          value
+            ? ({ label: `${value}`, value } as SelectorOption_t<T>)
+            : undefined
+        }
         onChange={(option) => option && onSelect(option.value!)}
         closeMenuOnSelect
         menuPortalTarget={document.body}

@@ -182,4 +182,4 @@ export const COLOR_IDS = {
 
 export type Color_t = keyof typeof COLOR_IDS;
 
-export const COLORS = Object.keys(COLOR_IDS);
+export const COLORS: Color_t[] = Object.keys(COLOR_IDS) as Color_t[];

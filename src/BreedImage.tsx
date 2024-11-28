@@ -8,7 +8,7 @@ import {
 import { Dragon_t } from "./constants/dragonBreeds";
 
 interface BreedImageProps {
-  dragon?: Dragon_t;
+  dragon: Dragon_t | null;
   primaryGene?: PrimaryGene_t;
   secondaryGene?: SecondaryGene_t;
   tertiaryGene?: TertiaryGene_t;

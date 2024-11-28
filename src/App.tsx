@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { COLORS } from "./constants/colors";
+import { Color_t, COLORS } from "./constants/colors";
 import { View, SafeAreaView } from "react-native";
 
 import { SECTION_STYLE } from "./constants/styles";
@@ -9,11 +9,11 @@ import Selector from "./Selector";
 import BreedImage from "./BreedImage";
 
 function App() {
-  const [currentBreed, setCurrentBreed] = React.useState<string | null>(null);
+  const [currentBreed, setCurrentBreed] = React.useState<Dragon_t | null>(null);
 
-  const [primary, setPrimary] = React.useState<string>("Maize");
-  const [secondary, setSecondary] = React.useState<string>("Maize");
-  const [tertiary, setTertiary] = React.useState<string>("Maize");
+  const [primary, setPrimary] = React.useState<Color_t>("Maize");
+  const [secondary, setSecondary] = React.useState<Color_t>("Maize");
+  const [tertiary, setTertiary] = React.useState<Color_t>("Maize");
 
   return (
     <SafeAreaView
@@ -42,7 +42,7 @@ function App() {
           value={currentBreed}
           title="Breed"
         />
-        <BreedImage dragon={currentBreed as Dragon_t} />
+        <BreedImage dragon={currentBreed} />
         <Selector
           options={COLORS}
           onSelect={setPrimary}
