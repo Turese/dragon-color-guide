@@ -217,12 +217,16 @@ type AncientTertiaryGene_t =
   | keyof typeof UNDERTIDE_TERTIARY_IDS
   | keyof typeof VEILSPUN_TERTIARY_IDS;
 
-type PrimaryGene_t = keyof typeof MODERN_PRIMARY_IDS | AncientPrimaryGene_t;
+export type PrimaryGene_t =
+  | keyof typeof MODERN_PRIMARY_IDS
+  | AncientPrimaryGene_t;
 
-type SecondaryGene_t =
+export type SecondaryGene_t =
   | keyof typeof MODERN_SECONDARY_IDS
   | AncientSecondaryGene_t;
-type TertiaryGene_t = keyof typeof MODERN_TERTIARY_IDS | AncientTertiaryGene_t;
+export type TertiaryGene_t =
+  | keyof typeof MODERN_TERTIARY_IDS
+  | AncientTertiaryGene_t;
 
 export type Gene_t = PrimaryGene_t | SecondaryGene_t | TertiaryGene_t;
 

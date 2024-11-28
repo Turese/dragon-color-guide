@@ -180,4 +180,6 @@ export const COLOR_IDS = {
   Pearl: 85,
 };
 
-export const colors = Object.keys(COLOR_IDS);
+export type Color_t = keyof typeof COLOR_IDS;
+
+export const COLORS = Object.keys(COLOR_IDS);

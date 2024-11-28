@@ -75,7 +75,7 @@ export const GENE_MAPPINGS: Record<Dragon_t, GeneRecord_t> = {
 
 export type Dragon_t = keyof typeof DRAGON_IDS;
 
-export const DRAGON_LIST: string[] = Object.keys(DRAGON_IDS);
+export const DRAGONS: string[] = Object.keys(DRAGON_IDS);
 
 export function dragonHasGene(
   breed: Dragon_t,
