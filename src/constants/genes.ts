@@ -232,10 +232,11 @@ export type Gene_t = PrimaryGene_t | SecondaryGene_t | TertiaryGene_t;
 
 export type GeneCategory_t = "primary" | "secondary" | "tertiary";
 
-export type GeneRecord_t = Record<
-  GeneCategory_t,
-  Partial<Record<PrimaryGene_t, number>>
->;
+export type GeneRecord_t = {
+  primary: Partial<Record<PrimaryGene_t, number>>;
+  secondary: Partial<Record<SecondaryGene_t, number>>;
+  tertiary: Partial<Record<TertiaryGene_t, number>>;
+};
 
 export const MODERN_GENE_MAPPINGS: GeneRecord_t = {
   primary: MODERN_PRIMARY_IDS,
