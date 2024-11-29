@@ -304,6 +304,12 @@ export const VEILSPUN_GENE_MAPPINGS: GeneRecord_t = {
   tertiary: VEILSPUN_TERTIARY_IDS,
 };
 
-export const PRIMARY_GENES: string[] = Object.keys(MODERN_PRIMARY_IDS); //todo: union all the ancient primary genes
-export const SECONDARY_GENES: string[] = Object.keys(MODERN_SECONDARY_IDS); //todo: union all the ancient primary genes
-export const TERTIARY_GENES: string[] = Object.keys(MODERN_TERTIARY_IDS); //todo: union all the ancient primary genes
+export const PRIMARY_GENES: PrimaryGene_t[] = Object.keys(
+  MODERN_PRIMARY_IDS,
+) as PrimaryGene_t[]; //todo: union all the ancient primary genes
+export const SECONDARY_GENES: SecondaryGene_t[] = Object.keys(
+  MODERN_SECONDARY_IDS,
+) as SecondaryGene_t[]; //todo: union all the ancient primary genes
+export const TERTIARY_GENES: TertiaryGene_t[] = Object.keys(
+  MODERN_TERTIARY_IDS,
+) as TertiaryGene_t[]; //todo: union all the ancient primary genes

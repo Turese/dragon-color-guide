@@ -7,6 +7,12 @@ import { SECTION_STYLE } from "./constants/styles";
 import { Dragon_t, DRAGONS } from "./constants/dragonBreeds";
 import Selector from "./Selector";
 import BreedImage from "./BreedImage";
+import {
+  PrimaryGene_t,
+  SecondaryGene_t,
+  TertiaryGene_t,
+} from "./constants/genes";
+import GeneList from "./GeneList";
 
 function App() {
   const [currentBreed, setCurrentBreed] = React.useState<Dragon_t | null>(null);
@@ -14,6 +20,13 @@ function App() {
   const [primary, setPrimary] = React.useState<Color_t>("Maize");
   const [secondary, setSecondary] = React.useState<Color_t>("Maize");
   const [tertiary, setTertiary] = React.useState<Color_t>("Maize");
+
+  const [primaryGene, setPrimaryGene] = React.useState<PrimaryGene_t>("Basic");
+  const [secondaryGene, setSecondaryGene] =
+    React.useState<SecondaryGene_t>("Basic");
+
+  const [tertiaryGene, setTertiaryGene] =
+    React.useState<TertiaryGene_t>("Basic");
 
   return (
     <SafeAreaView
@@ -71,9 +84,33 @@ function App() {
           paddingTop: 8,
         }}
       >
-        <View style={{ ...SECTION_STYLE }}></View>
-        <View style={{ ...SECTION_STYLE }}></View>
-        <View style={{ ...SECTION_STYLE }}></View>
+        <View style={{ ...SECTION_STYLE }}>
+          <GeneList
+            category="primary"
+            breed={currentBreed}
+            color={primary}
+            selected={primaryGene}
+            onSelect={setPrimaryGene}
+          />
+        </View>
+        <View style={{ ...SECTION_STYLE }}>
+          <GeneList
+            category="secondary"
+            breed={currentBreed}
+            color={secondary}
+            selected={secondaryGene}
+            onSelect={setSecondaryGene}
+          />
+        </View>
+        <View style={{ ...SECTION_STYLE }}>
+          <GeneList
+            category="tertiary"
+            breed={currentBreed}
+            color={tertiary}
+            selected={tertiaryGene}
+            onSelect={setTertiaryGene}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
