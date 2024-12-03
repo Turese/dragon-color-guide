@@ -13,6 +13,12 @@ import {
   TertiaryGene_t,
 } from "./constants/genes";
 import GeneList from "./GeneList";
+import {
+  generatePrimaryMapping,
+  generateSecondaryMapping,
+  generateTertiaryMapping,
+  getColorPrimaries,
+} from "./helpers/colorMapping";
 
 function App() {
   const [currentBreed, setCurrentBreed] = React.useState<Dragon_t | null>(null);
@@ -28,6 +34,28 @@ function App() {
   const [tertiaryGene, setTertiaryGene] =
     React.useState<TertiaryGene_t>("Basic");
 
+  const colorPrimaries: Record<Color_t, string> = React.useMemo(
+    () => getColorPrimaries(),
+    [],
+  );
+
+  const primaryMapping = React.useMemo(
+    () => generatePrimaryMapping(primary),
+    [primary],
+  );
+
+  const secondaryMapping = React.useMemo(
+    () => generateSecondaryMapping(secondary),
+    [secondary],
+  );
+
+  const tertiaryMapping = React.useMemo(
+    () => generateTertiaryMapping(tertiary),
+    [tertiary],
+  );
+
+  console.log();
+
   return (
     <SafeAreaView
       style={[
@@ -35,8 +63,8 @@ function App() {
           backgroundColor: "#fff2e4",
           flexDirection: "row",
           gap: 24,
-          height: "100%",
           padding: 4,
+          height: "100%",
           width: "100%",
         },
       ]}
@@ -86,29 +114,35 @@ function App() {
       >
         <View style={{ ...SECTION_STYLE }}>
           <GeneList
+            key={primary}
             category="primary"
             breed={currentBreed}
             color={primary}
             selected={primaryGene}
             onSelect={setPrimaryGene}
+            colorMapping={primaryMapping}
           />
         </View>
         <View style={{ ...SECTION_STYLE }}>
           <GeneList
+            key={secondary}
             category="secondary"
             breed={currentBreed}
             color={secondary}
             selected={secondaryGene}
             onSelect={setSecondaryGene}
+            colorMapping={secondaryMapping}
           />
         </View>
         <View style={{ ...SECTION_STYLE }}>
           <GeneList
+            key={tertiary}
             category="tertiary"
             breed={currentBreed}
             color={tertiary}
             selected={tertiaryGene}
             onSelect={setTertiaryGene}
+            colorMapping={tertiaryMapping}
           />
         </View>
       </View>

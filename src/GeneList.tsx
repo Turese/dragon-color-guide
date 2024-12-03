@@ -17,16 +17,17 @@ import {
   UNSELECTABLE_GENE_ITEM_STYLE,
 } from "./constants/styles";
 
-interface GeneListProps<T> {
+interface GeneListProps<T extends Gene_t> {
   color: Color_t;
   category: GeneCategory_t;
   breed: Dragon_t | null;
   selected: T;
   onSelect: (gene: T) => void;
+  colorMapping: Record<T, string[] | null>;
 }
 
 function GeneList<T extends Gene_t>(props: GeneListProps<T>) {
-  const { category, breed, selected, onSelect } = props;
+  const { category, breed, selected, onSelect, colorMapping } = props;
 
   const geneList = React.useMemo(() => {
     let baseList: Array<T>;
@@ -42,7 +43,7 @@ function GeneList<T extends Gene_t>(props: GeneListProps<T>) {
       isAvailable: !!breed && dragonHasGene(breed, category, gene),
       isSelected: selected === gene,
       onPress: () => onSelect(gene),
-      palette: ["#ffffff", "#ffffff", "#ffffff"], // todo: find palette for each color -> gene combination
+      palette: colorMapping[gene] || [], // todo: find palette for each color -> gene combination
     }));
   }, [breed, category, selected]);
 
