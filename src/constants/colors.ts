@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 /* Keeping the colors in FR palette order */
 export const COLOR_IDS = {
   Maize: 1,

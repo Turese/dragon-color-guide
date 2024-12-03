@@ -5,6 +5,16 @@ import {
   SecondaryGene_t,
   TertiaryGene_t,
 } from "../constants/genes";
+import {
+  AGE_IDS,
+  Age_t,
+  ELEMENT_IDS,
+  Element_t,
+  EYETYPE_IDS,
+  EyeType_t,
+  POSE_IDS,
+  Pose_t,
+} from "../constants/posesElements";
 
 const BASE_URL = "https://www1.flightrising.com/scrying/predict?";
 
@@ -16,7 +26,11 @@ export function generateScryLink(props: {
   primaryGene: PrimaryGene_t;
   secondaryGene: SecondaryGene_t;
   tertiaryGene: TertiaryGene_t;
-  breed?: Dragon_t;
+  breed: Dragon_t | null;
+  pose: Pose_t;
+  eyeType: EyeType_t;
+  element: Element_t;
+  age: Age_t;
 }): string | null {
   const {
     breed,
@@ -26,6 +40,10 @@ export function generateScryLink(props: {
     primaryGene,
     secondaryGene,
     tertiaryGene,
+    pose,
+    eyeType,
+    element,
+    age,
   } = props;
 
   let url = BASE_URL;
@@ -44,6 +62,9 @@ export function generateScryLink(props: {
     ) {
       return null;
     }
+    url += `&gender=${POSE_IDS[pose]}`;
+    url += `&age=${AGE_IDS[age]}`;
+
     url += `&bodygene=${breedPrimary}`;
     url += `&body=${COLOR_IDS[primary]}`;
 
@@ -52,6 +73,10 @@ export function generateScryLink(props: {
 
     url += `&tertgene=${breedTertiary}`;
     url += `&tert=${COLOR_IDS[tertiary]}`;
+    url += `&element=${ELEMENT_IDS[element]}`;
+    url += `&eyetype=${EYETYPE_IDS[eyeType]}`;
+  } else {
+    return null;
   }
 
   return url;

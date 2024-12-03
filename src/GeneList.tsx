@@ -116,11 +116,11 @@ const GeneItem = ({
 
 interface SwatchConfig {
   color: string;
-  tooltip: string;
+  tooltip?: string;
   isPrimary?: boolean;
 }
 
-const Swatch = ({ color, tooltip, isPrimary }: SwatchConfig) => (
+const Swatch = ({ color, isPrimary }: SwatchConfig) => (
   <View>
     <View
       style={{

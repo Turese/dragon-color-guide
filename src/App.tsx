@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Color_t, COLORS } from "./constants/colors";
-import { View, SafeAreaView } from "react-native";
+import { View, SafeAreaView, Button } from "react-native";
 
 import { SECTION_STYLE } from "./constants/styles";
 import { Dragon_t, DRAGONS } from "./constants/dragonBreeds";
@@ -13,9 +13,17 @@ import {
   TertiaryGene_t,
 } from "./constants/genes";
 import GeneList from "./GeneList";
+import { generateScryLink } from "./helpers/scryLink";
+import {
+  Age_t,
+  Element_t,
+  EyeType_t,
+  Pose_t,
+  POSES,
+} from "./constants/posesElements";
 
 function App() {
-  const [currentBreed, setCurrentBreed] = React.useState<Dragon_t | null>(null);
+  const [breed, setBreed] = React.useState<Dragon_t | null>(null);
 
   const [primary, setPrimary] = React.useState<Color_t>("Maize");
   const [secondary, setSecondary] = React.useState<Color_t>("Maize");
@@ -27,6 +35,28 @@ function App() {
 
   const [tertiaryGene, setTertiaryGene] =
     React.useState<TertiaryGene_t>("Basic");
+
+  const [pose, setPose] = React.useState<Pose_t>("Female");
+
+  const [age, setAge] = React.useState<Age_t>("Adult");
+
+  const [element, setElement] = React.useState<Element_t>("Wind");
+
+  const [eyeType, setEyeType] = React.useState<EyeType_t>("Common");
+
+  const scryLink = generateScryLink({
+    primary,
+    secondary,
+    tertiary,
+    primaryGene,
+    secondaryGene,
+    tertiaryGene,
+    breed,
+    pose,
+    age,
+    element,
+    eyeType,
+  });
 
   return (
     <SafeAreaView
@@ -51,11 +81,17 @@ function App() {
       >
         <Selector
           options={DRAGONS}
-          onSelect={setCurrentBreed}
-          value={currentBreed}
+          onSelect={setBreed}
+          value={breed}
           title="Breed"
         />
-        <BreedImage dragon={currentBreed} />
+        <Selector
+          options={POSES}
+          onSelect={setPose}
+          value={pose}
+          title="Pose"
+        />
+        <BreedImage dragon={breed} />
         <Selector
           options={COLORS}
           onSelect={setPrimary}
@@ -74,6 +110,13 @@ function App() {
           value={tertiary}
           title="Tertiary"
         />
+        <Button
+          title="View scry!"
+          onPress={() => {
+            if (scryLink) window.open(scryLink, "_blank")?.focus();
+          }}
+          disabled={!scryLink}
+        />
       </View>
       <View
         style={{
@@ -88,7 +131,7 @@ function App() {
           <GeneList
             key={primary}
             category="primary"
-            breed={currentBreed}
+            breed={breed}
             color={primary}
             selected={primaryGene}
             onSelect={setPrimaryGene}
@@ -98,7 +141,7 @@ function App() {
           <GeneList
             key={secondary}
             category="secondary"
-            breed={currentBreed}
+            breed={breed}
             color={secondary}
             selected={secondaryGene}
             onSelect={setSecondaryGene}
@@ -108,7 +151,7 @@ function App() {
           <GeneList
             key={tertiary}
             category="tertiary"
-            breed={currentBreed}
+            breed={breed}
             color={tertiary}
             selected={tertiaryGene}
             onSelect={setTertiaryGene}
