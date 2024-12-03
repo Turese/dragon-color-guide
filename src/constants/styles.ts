@@ -1,9 +1,9 @@
-import { ViewStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 
 const SECTION_BORDER: ViewStyle = {
   borderColor: "#1e1914",
-  borderRadius: "10px",
-  borderWidth: 2,
+  borderRadius: "8px",
+  borderWidth: 1,
 };
 
 export const SECTION_STYLE: ViewStyle = {
@@ -15,13 +15,17 @@ export const SECTION_STYLE: ViewStyle = {
 };
 
 export const GENE_ITEM_STYLE: ViewStyle = {
-  alignItems: "flex-end",
+  alignItems: "center",
   flexDirection: "row",
   gap: 4,
-  justifyContent: "center",
   padding: 4,
+  marginTop: 2,
+  marginBottom: 2,
   width: "100%",
-  ...SECTION_BORDER,
+  overflow: "scroll",
+  borderColor: "#1e1914",
+  borderRadius: "8px",
+  borderWidth: 1,
 };
 
 export const SELECTABLE_GENE_ITEM_STYLE: ViewStyle = {
@@ -30,12 +34,8 @@ export const SELECTABLE_GENE_ITEM_STYLE: ViewStyle = {
   ...GENE_ITEM_STYLE,
 };
 
-export const UNSELECTABLE_GENE_ITEM_STYLE: ViewStyle = {
-  backgroundColor: "#ff0000",
-  ...GENE_ITEM_STYLE,
+export const SELECTED_GENE_ITEM_STYLE: ViewStyle = {
+  backgroundColor: "#bcaca6",
 };
 
-export const SELECTED_GENE_ITEM_STYLE: ViewStyle = {
-  backgroundColor: "#ff4444",
-  ...GENE_ITEM_STYLE,
-};
+export const SELECTED_GENE_ITEM_TEXT_STYLE: TextStyle = { fontWeight: "bold" };

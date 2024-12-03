@@ -14,7 +14,6 @@ import { Color_t } from "./constants/colors";
 import {
   SELECTABLE_GENE_ITEM_STYLE,
   SELECTED_GENE_ITEM_STYLE,
-  UNSELECTABLE_GENE_ITEM_STYLE,
 } from "./constants/styles";
 
 interface GeneListProps<T extends Gene_t> {
@@ -74,39 +73,52 @@ interface GeneItemConfig {
   onPress: () => void;
 }
 
-function GeneItem({
+const GeneItem = ({
   gene,
   isAvailable,
   isSelected,
   palette,
   onPress,
-}: GeneItemConfig) {
-  return (
-    <Pressable
-      style={
-        isSelected
-          ? SELECTED_GENE_ITEM_STYLE
-          : isAvailable
-            ? SELECTABLE_GENE_ITEM_STYLE
-            : UNSELECTABLE_GENE_ITEM_STYLE
-      }
-      onPress={onPress}
+}: GeneItemConfig) => (
+  <Pressable
+    style={{
+      ...SELECTABLE_GENE_ITEM_STYLE,
+      opacity: isAvailable ? 1 : 0.5,
+      ...(isSelected ? SELECTED_GENE_ITEM_STYLE : null),
+    }}
+    onPress={onPress}
+  >
+    <Text
+      style={{
+        fontWeight: isSelected ? "bold" : undefined,
+      }}
     >
-      <Text>{gene}</Text>
-      <View style={{ flexDirection: "row", marginLeft: "auto" }}>
-        {palette.map((color) => (
-          <View
-            style={{
-              backgroundColor: color,
-              borderWidth: 1,
-              height: 20,
-              width: 20,
-            }}
-          />
-        ))}
-      </View>
-    </Pressable>
-  );
+      {gene}
+    </Text>
+    <View style={{ flexDirection: "row", marginLeft: "auto" }}>
+      {palette.map((color) => (
+        <Swatch color={color} tooltip={color} />
+      ))}
+    </View>
+  </Pressable>
+);
+
+interface SwatchConfig {
+  color: string;
+  tooltip: string;
+  isPrimary?: boolean;
 }
+
+const Swatch = ({ color, tooltip, isPrimary }: SwatchConfig) => (
+  <View
+    style={{
+      backgroundColor: color,
+      borderWidth: 1,
+      margin: isPrimary ? 1 : 6, // extra margin aims to make secondary colors take up the same amount of space
+      height: isPrimary ? 20 : 10,
+      width: isPrimary ? 20 : 10,
+    }}
+  />
+);
 
 export default GeneList;
