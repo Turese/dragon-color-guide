@@ -12,9 +12,12 @@ import {
 import { Dragon_t, dragonHasGene } from "./constants/dragonBreeds";
 import { Color_t } from "./constants/colors";
 import {
-  SELECTABLE_GENE_ITEM_STYLE,
+  GENE_ITEM_STYLE,
+  INVALID_ITEM_STYLE,
   SELECTED_GENE_ITEM_STYLE,
+  SELECTED_INVALID_ITEM_STYLE,
 } from "./constants/styles";
+import { GeneColorMapping_t, getGeneColorList } from "./helpers/colorMapping";
 
 interface GeneListProps<T extends Gene_t> {
   color: Color_t;
@@ -22,11 +25,10 @@ interface GeneListProps<T extends Gene_t> {
   breed: Dragon_t | null;
   selected: T;
   onSelect: (gene: T) => void;
-  colorMapping: Record<T, string[] | null>;
 }
 
 function GeneList<T extends Gene_t>(props: GeneListProps<T>) {
-  const { category, breed, selected, onSelect, colorMapping } = props;
+  const { color, category, breed, selected, onSelect } = props;
 
   const geneList = React.useMemo(() => {
     let baseList: Array<T>;
@@ -42,9 +44,9 @@ function GeneList<T extends Gene_t>(props: GeneListProps<T>) {
       isAvailable: !!breed && dragonHasGene(breed, category, gene),
       isSelected: selected === gene,
       onPress: () => onSelect(gene),
-      palette: colorMapping[gene] || [], // todo: find palette for each color -> gene combination
+      palette: getGeneColorList(color, gene, category) || [], // todo: find palette for each color -> gene combination
     }));
-  }, [breed, category, selected]);
+  }, [breed, category, selected, color, onSelect]);
 
   return (
     <View style={{ padding: 4, width: "100%" }}>
@@ -69,7 +71,7 @@ interface GeneItemConfig {
   gene: string;
   isAvailable: boolean;
   isSelected: boolean;
-  palette: string[];
+  palette: GeneColorMapping_t[];
   onPress: () => void;
 }
 
@@ -82,22 +84,31 @@ const GeneItem = ({
 }: GeneItemConfig) => (
   <Pressable
     style={{
-      ...SELECTABLE_GENE_ITEM_STYLE,
-      opacity: isAvailable ? 1 : 0.5,
-      ...(isSelected ? SELECTED_GENE_ITEM_STYLE : null),
+      ...GENE_ITEM_STYLE,
+      ...(!isAvailable ? INVALID_ITEM_STYLE : null),
+      ...(isSelected
+        ? isAvailable
+          ? SELECTED_GENE_ITEM_STYLE
+          : SELECTED_INVALID_ITEM_STYLE
+        : null),
     }}
     onPress={onPress}
   >
     <Text
       style={{
         fontWeight: isSelected ? "bold" : undefined,
+        opacity: isAvailable ? 1 : 0.5,
       }}
     >
       {gene}
     </Text>
     <View style={{ flexDirection: "row", marginLeft: "auto" }}>
-      {palette.map((color) => (
-        <Swatch color={color} tooltip={color} />
+      {palette.map((colorMapping: GeneColorMapping_t) => (
+        <Swatch
+          color={colorMapping.color}
+          tooltip={colorMapping.name}
+          isPrimary={colorMapping.isPrimary}
+        />
       ))}
     </View>
   </Pressable>
@@ -110,15 +121,18 @@ interface SwatchConfig {
 }
 
 const Swatch = ({ color, tooltip, isPrimary }: SwatchConfig) => (
-  <View
-    style={{
-      backgroundColor: color,
-      borderWidth: 1,
-      margin: isPrimary ? 1 : 6, // extra margin aims to make secondary colors take up the same amount of space
-      height: isPrimary ? 20 : 10,
-      width: isPrimary ? 20 : 10,
-    }}
-  />
+  <View>
+    <View
+      style={{
+        opacity: 1,
+        backgroundColor: color,
+        borderWidth: 1,
+        margin: isPrimary ? 1 : 6, // extra margin aims to make secondary colors take up the same amount of space
+        height: isPrimary ? 20 : 10,
+        width: isPrimary ? 20 : 10,
+      }}
+    />
+  </View>
 );
 
 export default GeneList;

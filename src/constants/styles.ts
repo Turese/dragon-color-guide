@@ -28,14 +28,16 @@ export const GENE_ITEM_STYLE: ViewStyle = {
   borderWidth: 1,
 };
 
-export const SELECTABLE_GENE_ITEM_STYLE: ViewStyle = {
-  backgroundColor: "#ffffff",
-  cursor: "pointer",
-  ...GENE_ITEM_STYLE,
+export const INVALID_ITEM_STYLE: ViewStyle = {
+  borderColor: "#8e8c89",
 };
 
 export const SELECTED_GENE_ITEM_STYLE: ViewStyle = {
   backgroundColor: "#bcaca6",
+};
+
+export const SELECTED_INVALID_ITEM_STYLE: ViewStyle = {
+  backgroundColor: "#ddd5d2",
 };
 
 export const SELECTED_GENE_ITEM_TEXT_STYLE: TextStyle = { fontWeight: "bold" };

@@ -13,12 +13,6 @@ import {
   TertiaryGene_t,
 } from "./constants/genes";
 import GeneList from "./GeneList";
-import {
-  generatePrimaryMapping,
-  generateSecondaryMapping,
-  generateTertiaryMapping,
-  getColorPrimaries,
-} from "./helpers/colorMapping";
 
 function App() {
   const [currentBreed, setCurrentBreed] = React.useState<Dragon_t | null>(null);
@@ -33,28 +27,6 @@ function App() {
 
   const [tertiaryGene, setTertiaryGene] =
     React.useState<TertiaryGene_t>("Basic");
-
-  const colorPrimaries: Record<Color_t, string> = React.useMemo(
-    () => getColorPrimaries(),
-    [],
-  );
-
-  const primaryMapping = React.useMemo(
-    () => generatePrimaryMapping(primary),
-    [primary],
-  );
-
-  const secondaryMapping = React.useMemo(
-    () => generateSecondaryMapping(secondary),
-    [secondary],
-  );
-
-  const tertiaryMapping = React.useMemo(
-    () => generateTertiaryMapping(tertiary),
-    [tertiary],
-  );
-
-  console.log();
 
   return (
     <SafeAreaView
@@ -120,7 +92,6 @@ function App() {
             color={primary}
             selected={primaryGene}
             onSelect={setPrimaryGene}
-            colorMapping={primaryMapping}
           />
         </View>
         <View style={{ ...SECTION_STYLE }}>
@@ -131,7 +102,6 @@ function App() {
             color={secondary}
             selected={secondaryGene}
             onSelect={setSecondaryGene}
-            colorMapping={secondaryMapping}
           />
         </View>
         <View style={{ ...SECTION_STYLE }}>
@@ -142,7 +112,6 @@ function App() {
             color={tertiary}
             selected={tertiaryGene}
             onSelect={setTertiaryGene}
-            colorMapping={tertiaryMapping}
           />
         </View>
       </View>
