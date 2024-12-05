@@ -29,7 +29,8 @@ export const GENE_ITEM_STYLE: ViewStyle = {
 };
 
 export const INVALID_ITEM_STYLE: ViewStyle = {
-  borderColor: "#8e8c89",
+  borderColor: "#ded5d2",
+  backgroundColor: "#f7f7f7",
 };
 
 export const SELECTED_GENE_ITEM_STYLE: ViewStyle = {
@@ -37,7 +38,7 @@ export const SELECTED_GENE_ITEM_STYLE: ViewStyle = {
 };
 
 export const SELECTED_INVALID_ITEM_STYLE: ViewStyle = {
-  backgroundColor: "#ddd5d2",
+  backgroundColor: "#e9e0dd",
 };
 
 export const SELECTED_GENE_ITEM_TEXT_STYLE: TextStyle = { fontWeight: "bold" };
