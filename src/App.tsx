@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
 import { Color_t, COLORS } from "./constants/colors";
-import { View, SafeAreaView, Button } from "react-native";
+import { View, SafeAreaView, Button, Switch } from "react-native";
 
 import { SECTION_STYLE } from "./constants/styles";
 import { Dragon_t, DRAGONS } from "./constants/dragonBreeds";
-import Selector from "./Selector";
+import Selector, { SwitchSelector } from "./Selector";
 import BreedImage from "./BreedImage";
 import {
   PrimaryGene_t,
@@ -17,7 +17,9 @@ import { generateScryLink } from "./helpers/scryLink";
 import {
   Age_t,
   Element_t,
+  ELEMENTS,
   EyeType_t,
+  EYETYPES,
   Pose_t,
   POSES,
 } from "./constants/posesElements";
@@ -75,7 +77,7 @@ function App() {
         style={{
           ...SECTION_STYLE,
           flex: 0.33,
-          gap: "4px",
+          gap: 4,
           padding: 4,
         }}
       >
@@ -85,13 +87,45 @@ function App() {
           value={breed}
           title="Breed"
         />
-        <Selector
-          options={POSES}
-          onSelect={setPose}
-          value={pose}
-          title="Pose"
-        />
+        <View style={{ flexDirection: "row", width: "100%" }}>
+          <SwitchSelector
+            value={pose === "Female"}
+            title={pose}
+            onSelect={() => {
+              if (pose === "Female") setPose("Male");
+              else setPose("Female");
+            }}
+            width="50%"
+          />
+          <SwitchSelector
+            value={age === "Adult"}
+            title={age}
+            onSelect={() => {
+              if (age === "Adult") setAge("Hatchling");
+              else setAge("Adult");
+            }}
+            width="50%"
+          />
+        </View>
         <BreedImage dragon={breed} age={age} pose={pose} />
+        <View style={{ flexDirection: "row", width: "100%" }}>
+          <Selector
+            options={ELEMENTS}
+            onSelect={setElement}
+            value={element}
+            title="Element"
+            width="50%"
+            flexDirection="column"
+          />
+          <Selector
+            options={EYETYPES}
+            onSelect={setEyeType}
+            value={eyeType}
+            title="Eye Type"
+            width="50%"
+            flexDirection="column"
+          />
+        </View>
         <Selector
           options={COLORS}
           onSelect={setPrimary}
