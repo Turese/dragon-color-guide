@@ -91,7 +91,7 @@ function App() {
           value={pose}
           title="Pose"
         />
-        <BreedImage dragon={breed} />
+        <BreedImage dragon={breed} age={age} pose={pose} />
         <Selector
           options={COLORS}
           onSelect={setPrimary}
