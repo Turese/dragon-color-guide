@@ -81,7 +81,7 @@ const MODERN_SECONDARY_IDS = {
   Malachite: 237,
   Marbled: 57,
   Morph: 23,
-  Myrid: 149,
+  Myrid: 110,
   Noxtide: 24,
   Paint: 10,
   Paisley: 136,

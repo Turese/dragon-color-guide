@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Color_t, COLORS } from "./constants/colors";
-import { View, SafeAreaView, Button, Switch } from "react-native";
+import { View, SafeAreaView, Button } from "react-native";
 
 import { SECTION_STYLE } from "./constants/styles";
 import { Dragon_t, DRAGONS } from "./constants/dragonBreeds";
@@ -21,7 +21,6 @@ import {
   EyeType_t,
   EYETYPES,
   Pose_t,
-  POSES,
 } from "./constants/posesElements";
 
 function App() {
