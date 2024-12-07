@@ -18,11 +18,24 @@ import {
   BASIC_MAIN,
   BASIC_SECONDARY_KEYS,
 } from "../constants/genes/Basic";
+import { BATTY, BATTY_KEYS, BATTY_MAIN } from "../constants/genes/Batty";
+import {
+  BOA_KEYS,
+  BOA_SADDLE,
+  BOA_SADDLE_MAIN,
+  SADDLE_KEYS,
+} from "../constants/genes/BoaSaddle";
 import {
   BOULDER_MYRID,
   BOULDER_MYRID_KEYS,
   BOULDER_MYRID_MAIN,
 } from "../constants/genes/BoulderMyrid";
+import {
+  CATERPILLAR_KEYS,
+  CATERPILLAR_LARVAE,
+  CATERPILLAR_LARVAE_MAIN,
+  LARVAE_KEYS,
+} from "../constants/genes/CaterpillarLarvae";
 import {
   BLEND_KEYS,
   FADE_BLEND,
@@ -40,6 +53,11 @@ import {
   FLAUNT_FLAIR_MAIN,
   FLAUNT_KEYS,
 } from "../constants/genes/FlauntFlair";
+import {
+  PEACOCK,
+  PEACOCK_KEYS,
+  PEACOCK_MAIN,
+} from "../constants/genes/Peacock";
 
 export type PrimaryMapping_t = Record<PrimaryGene_t, string[] | null>;
 export type SecondaryMapping_t = Record<SecondaryGene_t, string[] | null>;
@@ -111,6 +129,30 @@ export function getGeneColorList(
     case "Myrid":
       return BOULDER_MYRID_KEYS.map((key) =>
         makeMapping(key, color, BOULDER_MYRID, BOULDER_MYRID_MAIN),
+      );
+    case "Caterpillar":
+      return CATERPILLAR_KEYS.map((key) =>
+        makeMapping(key, color, CATERPILLAR_LARVAE, CATERPILLAR_LARVAE_MAIN),
+      );
+    case "Larvae":
+      return LARVAE_KEYS.map((key) =>
+        makeMapping(key, color, CATERPILLAR_LARVAE, CATERPILLAR_LARVAE_MAIN),
+      );
+    case "Peacock":
+      return PEACOCK_KEYS.map((key) =>
+        makeMapping(key, color, PEACOCK, PEACOCK_MAIN),
+      );
+    case "Batty":
+      return BATTY_KEYS.map((key) =>
+        makeMapping(key, color, BATTY, BATTY_MAIN),
+      );
+    case "Boa":
+      return BOA_KEYS.map((key) =>
+        makeMapping(key, color, BOA_SADDLE, BOA_SADDLE_MAIN),
+      );
+    case "Saddle":
+      return SADDLE_KEYS.map((key) =>
+        makeMapping(key, color, BOA_SADDLE, BOA_SADDLE_MAIN),
       );
     default:
       return [];
