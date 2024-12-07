@@ -1,16 +1,17 @@
 import React from "react";
 
-import { View, Text, FlatList, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native";
 
 import {
-  Gene_t,
   GeneCategory_t,
   PRIMARY_GENES,
+  PrimaryGene_t,
   SECONDARY_GENES,
+  SecondaryGene_t,
   TERTIARY_GENES,
+  TertiaryGene_t,
 } from "./constants/genes";
-import { Dragon_t, dragonHasGene } from "./constants/dragonBreeds";
-import { Color_t } from "./constants/colors";
+import { dragonHasGene } from "./constants/dragonBreeds";
 import {
   GENE_ITEM_STYLE,
   INVALID_ITEM_STYLE,
@@ -18,52 +19,73 @@ import {
   SELECTED_INVALID_ITEM_STYLE,
 } from "./constants/styles";
 import { GeneColorMapping_t, getGeneColorList } from "./helpers/colorMapping";
+import { useDragonCtx } from "./dragonCtx";
 
-interface GeneListProps<T extends Gene_t> {
-  color: Color_t;
+interface GeneListProps {
   category: GeneCategory_t;
-  breed: Dragon_t | null;
-  selected: T;
-  onSelect: (gene: T) => void;
 }
 
-function GeneList<T extends Gene_t>(props: GeneListProps<T>) {
-  const { color, category, breed, selected, onSelect } = props;
+function GeneList(props: GeneListProps) {
+  const { category } = props;
 
   const geneList = React.useMemo(() => {
-    let baseList: Array<T>;
     if (category === "primary") {
-      baseList = PRIMARY_GENES as Array<T>;
+      return PRIMARY_GENES.map((gene) => (
+        <PrimaryGeneItem gene={gene} key={`tertiary-${gene}`} />
+      ));
     } else if (category === "secondary") {
-      baseList = SECONDARY_GENES as Array<T>;
+      return SECONDARY_GENES.map((gene) => (
+        <SecondaryGeneItem gene={gene} key={`secondary-${gene}`} />
+      ));
     } else {
-      baseList = TERTIARY_GENES as Array<T>;
+      return TERTIARY_GENES.map((gene) => (
+        <TertiaryGeneItem gene={gene} key={`tertiary-${gene}`} />
+      ));
     }
-    return baseList.map<GeneItemConfig>((gene) => ({
-      gene,
-      isAvailable: !!breed && dragonHasGene(breed, category, gene),
-      isSelected: selected === gene,
-      onPress: () => onSelect(gene),
-      palette: getGeneColorList(color, gene, category) || [], // todo: find palette for each color -> gene combination
-    }));
-  }, [breed, category, selected, color, onSelect]);
+  }, [category]);
 
+  return <View style={{ padding: 4, width: "100%" }}>{geneList}</View>;
+}
+
+function PrimaryGeneItem(props: { gene: PrimaryGene_t }) {
+  const { gene } = props;
+  const { breed, primary, primaryGene, setPrimaryGene } = useDragonCtx();
   return (
-    <View style={{ padding: 4, width: "100%" }}>
-      <FlatList
-        data={geneList}
-        renderItem={(renderProps: { item: GeneItemConfig }) => (
-          <GeneItem
-            gene={renderProps.item.gene as string}
-            isAvailable={renderProps.item.isAvailable}
-            isSelected={renderProps.item.isSelected}
-            palette={renderProps.item.palette}
-            onPress={renderProps.item.onPress}
-          />
-        )}
-        keyExtractor={(item: GeneItemConfig) => `${item.gene}-${category}`}
-      />
-    </View>
+    <GeneItem
+      gene={gene}
+      isAvailable={!!breed && dragonHasGene(breed, "primary", gene)}
+      isSelected={gene === primaryGene}
+      onPress={() => setPrimaryGene(gene)}
+      palette={getGeneColorList(primary, gene, "primary")}
+    />
+  );
+}
+
+function SecondaryGeneItem(props: { gene: SecondaryGene_t }) {
+  const { gene } = props;
+  const { breed, secondary, secondaryGene, setSecondaryGene } = useDragonCtx();
+  return (
+    <GeneItem
+      gene={gene}
+      isAvailable={!!breed && dragonHasGene(breed, "secondary", gene)}
+      isSelected={gene === secondaryGene}
+      onPress={() => setSecondaryGene(gene)}
+      palette={getGeneColorList(secondary, gene, "secondary")}
+    />
+  );
+}
+
+function TertiaryGeneItem(props: { gene: TertiaryGene_t }) {
+  const { gene } = props;
+  const { breed, tertiary, tertiaryGene, setTertiaryGene } = useDragonCtx();
+  return (
+    <GeneItem
+      gene={gene}
+      isAvailable={!!breed && dragonHasGene(breed, "tertiary", gene)}
+      isSelected={gene === tertiaryGene}
+      onPress={() => setTertiaryGene(gene)}
+      palette={getGeneColorList(tertiary, gene, "tertiary")}
+    />
   );
 }
 
@@ -127,7 +149,7 @@ const Swatch = ({ color, isPrimary }: SwatchConfig) => (
         opacity: 1,
         backgroundColor: color,
         borderWidth: 1,
-        margin: isPrimary ? 1 : 6, // extra margin aims to make secondary colors take up the same amount of space
+        margin: isPrimary ? 1 : 6, // extra margin aims to make minor colors take up the same amount of space
         height: isPrimary ? 20 : 10,
         width: isPrimary ? 20 : 10,
       }}

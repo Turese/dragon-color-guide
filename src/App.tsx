@@ -1,17 +1,13 @@
 import React from "react";
 import "./App.css";
-import { Color_t, COLORS } from "./constants/colors";
+import { COLORS } from "./constants/colors";
 import { View, SafeAreaView, Button } from "react-native";
 
 import { SECTION_STYLE } from "./constants/styles";
-import { Dragon_t, DRAGONS } from "./constants/dragonBreeds";
+import { DRAGONS } from "./constants/dragonBreeds";
 import Selector, { SwitchSelector } from "./Selector";
 import BreedImage from "./BreedImage";
-import {
-  PrimaryGene_t,
-  SecondaryGene_t,
-  TertiaryGene_t,
-} from "./constants/genes";
+
 import GeneList from "./GeneList";
 import { generateScryLink } from "./helpers/scryLink";
 import {
@@ -22,21 +18,9 @@ import {
   EYETYPES,
   Pose_t,
 } from "./constants/posesElements";
+import { useDragonCtx } from "./dragonCtx";
 
 function App() {
-  const [breed, setBreed] = React.useState<Dragon_t | null>(null);
-
-  const [primary, setPrimary] = React.useState<Color_t>("Maize");
-  const [secondary, setSecondary] = React.useState<Color_t>("Maize");
-  const [tertiary, setTertiary] = React.useState<Color_t>("Maize");
-
-  const [primaryGene, setPrimaryGene] = React.useState<PrimaryGene_t>("Basic");
-  const [secondaryGene, setSecondaryGene] =
-    React.useState<SecondaryGene_t>("Basic");
-
-  const [tertiaryGene, setTertiaryGene] =
-    React.useState<TertiaryGene_t>("Basic");
-
   const [pose, setPose] = React.useState<Pose_t>("Female");
 
   const [age, setAge] = React.useState<Age_t>("Adult");
@@ -44,6 +28,20 @@ function App() {
   const [element, setElement] = React.useState<Element_t>("Wind");
 
   const [eyeType, setEyeType] = React.useState<EyeType_t>("Common");
+
+  const {
+    primary,
+    setPrimary,
+    secondary,
+    setSecondary,
+    tertiary,
+    setTertiary,
+    primaryGene,
+    secondaryGene,
+    tertiaryGene,
+    breed,
+    setBreed,
+  } = useDragonCtx();
 
   const scryLink = generateScryLink({
     primary,
@@ -161,34 +159,13 @@ function App() {
         }}
       >
         <View style={{ ...SECTION_STYLE }}>
-          <GeneList
-            key={primary}
-            category="primary"
-            breed={breed}
-            color={primary}
-            selected={primaryGene}
-            onSelect={setPrimaryGene}
-          />
+          <GeneList key="primary" category="primary" />
         </View>
         <View style={{ ...SECTION_STYLE }}>
-          <GeneList
-            key={secondary}
-            category="secondary"
-            breed={breed}
-            color={secondary}
-            selected={secondaryGene}
-            onSelect={setSecondaryGene}
-          />
+          <GeneList key="secondary" category="secondary" />
         </View>
         <View style={{ ...SECTION_STYLE }}>
-          <GeneList
-            key={tertiary}
-            category="tertiary"
-            breed={breed}
-            color={tertiary}
-            selected={tertiaryGene}
-            onSelect={setTertiaryGene}
-          />
+          <GeneList key="tertiary" category="tertiary" />
         </View>
       </View>
     </SafeAreaView>
