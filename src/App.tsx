@@ -104,7 +104,7 @@ function App() {
             width="50%"
           />
         </View>
-        <BreedImage dragon={breed} age={age} pose={pose} />
+        <BreedImage age={age} pose={pose} />
         <View style={{ flexDirection: "row", width: "100%" }}>
           <Selector
             options={ELEMENTS}
