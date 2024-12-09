@@ -436,6 +436,7 @@ const AURABOA_PRIMARY_IDS = {
 const AURABOA_SECONDARY_IDS = {
   Affection: 279,
   Alloy: 250,
+  Basic: 0,
   Blend: 242,
   Breakup: 252,
   Constellation: 263,
