@@ -1,6 +1,6 @@
 import React from "react";
 
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, StyleProp, TextStyle } from "react-native";
 
 import {
   GeneCategory_t,
@@ -15,6 +15,8 @@ import { dragonHasGene } from "./constants/dragonBreeds";
 import {
   GENE_ITEM_STYLE,
   INVALID_ITEM_STYLE,
+  LEFTHAND_GENE_ITEM_STYLE,
+  LEFTHAND_GENE_ITEM_TEXT_STYLE,
   SELECTED_GENE_ITEM_STYLE,
   SELECTED_INVALID_ITEM_STYLE,
 } from "./constants/styles";
@@ -142,7 +144,7 @@ interface SwatchConfig {
   isPrimary?: boolean;
 }
 
-const Swatch = ({ color, isPrimary }: SwatchConfig) => (
+export const Swatch = ({ color, isPrimary }: SwatchConfig) => (
   <View>
     <View
       style={{
@@ -154,6 +156,26 @@ const Swatch = ({ color, isPrimary }: SwatchConfig) => (
         width: isPrimary ? 20 : 10,
       }}
     />
+  </View>
+);
+
+export const LefthandGeneView = (props: {
+  palette: GeneColorMapping_t[];
+  gene: string;
+  isAvailable: boolean;
+}) => (
+  <View style={LEFTHAND_GENE_ITEM_STYLE}>
+    {!props.isAvailable && <Text>!!!</Text>}
+    <Text style={LEFTHAND_GENE_ITEM_TEXT_STYLE}>{props.gene}</Text>
+    <View style={{ flexDirection: "row", marginLeft: "auto" }}>
+      {props.palette.map((colorMapping: GeneColorMapping_t) => (
+        <Swatch
+          color={colorMapping.color}
+          tooltip={colorMapping.name}
+          isPrimary={colorMapping.isPrimary}
+        />
+      ))}
+    </View>
   </View>
 );
 

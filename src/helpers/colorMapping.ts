@@ -158,3 +158,7 @@ export function getGeneColorList(
       return [];
   }
 }
+
+export function getMainColorMapping() {
+  return;
+}

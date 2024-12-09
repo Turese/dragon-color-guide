@@ -1,14 +1,14 @@
 import React from "react";
 import "./App.css";
-import { COLORS } from "./constants/colors";
+import { Color_t, COLORS } from "./constants/colors";
 import { View, SafeAreaView, Button } from "react-native";
 
-import { SECTION_STYLE } from "./constants/styles";
-import { DRAGONS } from "./constants/dragonBreeds";
+import { SECTION_STYLE, SELECTED_COLOR } from "./constants/styles";
+import { dragonHasGene, DRAGONS } from "./constants/dragonBreeds";
 import Selector, { SwitchSelector } from "./Selector";
 import BreedImage from "./BreedImage";
 
-import GeneList from "./GeneList";
+import GeneList, { LefthandGeneView } from "./GeneList";
 import { generateScryLink } from "./helpers/scryLink";
 import {
   Age_t,
@@ -19,6 +19,8 @@ import {
   Pose_t,
 } from "./constants/posesElements";
 import { useDragonCtx } from "./dragonCtx";
+import { BASIC } from "./constants/genes/Basic";
+import { getGeneColorList } from "./helpers/colorMapping";
 
 function App() {
   const [pose, setPose] = React.useState<Pose_t>("Female");
@@ -128,21 +130,44 @@ function App() {
           onSelect={setPrimary}
           value={primary}
           title="Primary"
+          getColor={(color: Color_t) => BASIC[color]["Main"]}
+        />
+        <LefthandGeneView
+          gene={primaryGene}
+          palette={getGeneColorList(primary, primaryGene, "primary")}
+          isAvailable={!!breed && dragonHasGene(breed, "primary", primaryGene)}
         />
         <Selector
           options={COLORS}
           onSelect={setSecondary}
           value={secondary}
           title="Secondary"
+          getColor={(color: Color_t) => BASIC[color]["Main"]}
+        />
+        <LefthandGeneView
+          gene={secondaryGene}
+          palette={getGeneColorList(secondary, secondaryGene, "secondary")}
+          isAvailable={
+            !!breed && dragonHasGene(breed, "secondary", secondaryGene)
+          }
         />
         <Selector
           options={COLORS}
           onSelect={setTertiary}
           value={tertiary}
           title="Tertiary"
+          getColor={(color: Color_t) => BASIC[color]["Main"]}
+        />
+        <LefthandGeneView
+          gene={tertiaryGene}
+          palette={getGeneColorList(tertiary, tertiaryGene, "tertiary")}
+          isAvailable={
+            !!breed && dragonHasGene(breed, "tertiary", tertiaryGene)
+          }
         />
         <Button
           title="View scry!"
+          color={SELECTED_COLOR}
           onPress={() => {
             if (scryLink) window.open(scryLink, "_blank")?.focus();
           }}

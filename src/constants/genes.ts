@@ -1,5 +1,4 @@
 import { uniq } from "lodash";
-import { DRAGONS } from "./dragonBreeds";
 
 /* 
 the scrying workshop IDs of every primary gene 
