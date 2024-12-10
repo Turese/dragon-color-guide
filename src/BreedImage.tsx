@@ -23,7 +23,7 @@ function BreedImage(props: BreedImageProps) {
   const dragonId = breed?.toLowerCase();
 
   return (
-    <View style={{ height: "40%", width: "100%" }}>
+    <View style={{ height: "33%", width: "100%" }}>
       {breed && (
         <Image
           // eslint-disable-next-line @typescript-eslint/no-require-imports

@@ -127,6 +127,7 @@ const GeneItem = ({
       {gene}
     </Text>
     <View style={{ flexDirection: "row", marginLeft: "auto" }}>
+      {!palette.length && <View style={{ height: 20 }} />}
       {palette.map((colorMapping: GeneColorMapping_t) => (
         <Swatch
           color={colorMapping.color}
@@ -168,6 +169,7 @@ export const LefthandGeneView = (props: {
     {!props.isAvailable && <Text>!!!</Text>}
     <Text style={LEFTHAND_GENE_ITEM_TEXT_STYLE}>{props.gene}</Text>
     <View style={{ flexDirection: "row", marginLeft: "auto" }}>
+      {!props.palette.length && <View style={{ height: 20 }} />}
       {props.palette.map((colorMapping: GeneColorMapping_t) => (
         <Swatch
           color={colorMapping.color}

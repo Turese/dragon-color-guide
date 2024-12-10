@@ -37,6 +37,18 @@ import {
   LARVAE_KEYS,
 } from "../constants/genes/CaterpillarLarvae";
 import {
+  CHOIR_KEYS,
+  CHORUS_CHOIR,
+  CHORUS_CHOIR_MAIN,
+  CHORUS_KEYS,
+} from "../constants/genes/ChorusChoir";
+import {
+  BLAZE_KEYS,
+  CINDER_BLAZE,
+  CINDER_BLAZE_MAIN,
+  CINDER_KEYS,
+} from "../constants/genes/CinderBlaze";
+import {
   BLEND_KEYS,
   FADE_BLEND,
   FADE_BLEND_MAIN,
@@ -53,6 +65,17 @@ import {
   FLAUNT_FLAIR_MAIN,
   FLAUNT_KEYS,
 } from "../constants/genes/FlauntFlair";
+import {
+  HARLEQUIN_JESTER,
+  HARLEQUIN_JESTER_MAIN,
+  HARLEQUIN_KEYS,
+  JESTER_KEYS,
+} from "../constants/genes/HarlequinJester";
+import {
+  MONOCOLOR_TERTS,
+  MONOCOLOR_TERTS_KEY,
+  MONOCOLOR_TERTS_MAIN,
+} from "../constants/genes/MonocolorTerts";
 import {
   PEACOCK,
   PEACOCK_KEYS,
@@ -153,6 +176,42 @@ export function getGeneColorList(
     case "Saddle":
       return SADDLE_KEYS.map((key) =>
         makeMapping(key, color, BOA_SADDLE, BOA_SADDLE_MAIN),
+      );
+    case "Blaze":
+      return BLAZE_KEYS.map((key) =>
+        makeMapping(key, color, CINDER_BLAZE, CINDER_BLAZE_MAIN),
+      );
+    case "Cinder":
+      return CINDER_KEYS.map((key) =>
+        makeMapping(key, color, CINDER_BLAZE, CINDER_BLAZE_MAIN),
+      );
+    case "Harlequin":
+      return HARLEQUIN_KEYS.map((key) =>
+        makeMapping(key, color, HARLEQUIN_JESTER, HARLEQUIN_JESTER_MAIN),
+      );
+    case "Jester":
+      return JESTER_KEYS.map((key) =>
+        makeMapping(key, color, HARLEQUIN_JESTER, HARLEQUIN_JESTER_MAIN),
+      );
+    case "Chorus":
+      return CHORUS_KEYS.map((key) =>
+        makeMapping(key, color, CHORUS_CHOIR, CHORUS_CHOIR_MAIN),
+      );
+    case "Choir":
+      return CHOIR_KEYS.map((key) =>
+        makeMapping(key, color, CHORUS_CHOIR, CHORUS_CHOIR_MAIN),
+      );
+    case "Underbelly":
+    case "Kumo":
+    case "Points":
+    case "Circuit":
+    case "Contour":
+    case "Smirch":
+    case "Smoke":
+    case "Darts":
+    case "Polkadot":
+      return MONOCOLOR_TERTS_KEY.map((key) =>
+        makeMapping(key, color, MONOCOLOR_TERTS, MONOCOLOR_TERTS_MAIN),
       );
     default:
       return [];

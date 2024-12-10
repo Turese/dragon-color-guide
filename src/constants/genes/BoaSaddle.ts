@@ -1434,4 +1434,5 @@ export const BOA_SADDLE_MAIN: Record<string, true> = {
   Fill: true,
   "Fill blend": true,
   Belly: true,
+  Tips: true,
 };
