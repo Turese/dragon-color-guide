@@ -33,7 +33,7 @@ const DragonCtx = React.createContext<DragonState | undefined>(undefined);
 export const DragonStateProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [breed, setBreed] = React.useState<Dragon_t | null>(null);
+  const [breed, setBreed] = React.useState<Dragon_t>("Aberration");
 
   const [primary, setPrimary] = React.useState<Color_t>("Maize");
   const [secondary, setSecondary] = React.useState<Color_t>("Maize");

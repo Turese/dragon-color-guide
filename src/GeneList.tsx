@@ -1,7 +1,5 @@
 import React from "react";
 
-import { View, Text, Pressable, StyleProp, TextStyle } from "react-native";
-
 import {
   GeneCategory_t,
   PRIMARY_GENES,
@@ -12,16 +10,9 @@ import {
   TertiaryGene_t,
 } from "./constants/genes";
 import { dragonHasGene } from "./constants/dragonBreeds";
-import {
-  GENE_ITEM_STYLE,
-  INVALID_ITEM_STYLE,
-  LEFTHAND_GENE_ITEM_STYLE,
-  LEFTHAND_GENE_ITEM_TEXT_STYLE,
-  SELECTED_GENE_ITEM_STYLE,
-  SELECTED_INVALID_ITEM_STYLE,
-} from "./constants/styles";
 import { GeneColorMapping_t, getGeneColorList } from "./helpers/colorMapping";
 import { useDragonCtx } from "./dragonCtx";
+import { Button, ColorSwatch, Flex, Text, Tooltip } from "@mantine/core";
 
 interface GeneListProps {
   category: GeneCategory_t;
@@ -46,7 +37,11 @@ function GeneList(props: GeneListProps) {
     }
   }, [category]);
 
-  return <View style={{ padding: 4, width: "100%" }}>{geneList}</View>;
+  return (
+    <Flex style={{ flexDirection: "column", padding: 4, width: "100%" }}>
+      {geneList}
+    </Flex>
+  );
 }
 
 function PrimaryGeneItem(props: { gene: PrimaryGene_t }) {
@@ -105,80 +100,94 @@ const GeneItem = ({
   isSelected,
   palette,
   onPress,
-}: GeneItemConfig) => (
-  <Pressable
-    style={{
-      ...GENE_ITEM_STYLE,
-      ...(!isAvailable ? INVALID_ITEM_STYLE : null),
-      ...(isSelected
-        ? isAvailable
-          ? SELECTED_GENE_ITEM_STYLE
-          : SELECTED_INVALID_ITEM_STYLE
-        : null),
-    }}
-    onPress={onPress}
-  >
-    <Text
-      style={{
-        fontWeight: isSelected ? "bold" : undefined,
-        opacity: isAvailable ? 1 : 0.5,
-      }}
-    >
-      {gene}
-    </Text>
-    <View style={{ flexDirection: "row", marginLeft: "auto" }}>
-      {!palette.length && <View style={{ height: 20 }} />}
-      {palette.map((colorMapping: GeneColorMapping_t) => (
-        <Swatch
-          color={colorMapping.color}
-          tooltip={colorMapping.name}
-          isPrimary={colorMapping.isPrimary}
-        />
-      ))}
-    </View>
-  </Pressable>
-);
+}: GeneItemConfig) => {
+  const button = (
+    <Button
+      m={2}
+      variant="outline"
+      onClick={onPress}
+      fullWidth
+      justify="space-between"
+      data-disabled={!isAvailable}
+      leftSection={
+        <Text
+          style={{
+            fontWeight: isSelected ? "700" : undefined,
+            opacity: isAvailable ? 1 : 0.5,
+          }}
+        >
+          {gene}
+        </Text>
+      }
+      rightSection={
+        <Flex direction="row" style={{ marginLeft: "auto" }}>
+          <Palette palette={palette} />
+        </Flex>
+      }
+    />
+  );
 
-interface SwatchConfig {
+  if (!isAvailable)
+    return (
+      <Tooltip label="Gene is not available for this breed">{button}</Tooltip>
+    );
+  return button;
+};
+
+interface SwatchConfig_i {
   color: string;
   tooltip?: string;
   isPrimary?: boolean;
 }
 
-export const Swatch = ({ color, isPrimary }: SwatchConfig) => (
-  <View>
-    <View
-      style={{
-        opacity: 1,
-        backgroundColor: color,
-        borderWidth: 1,
-        margin: isPrimary ? 1 : 6, // extra margin aims to make minor colors take up the same amount of space
-        height: isPrimary ? 20 : 10,
-        width: isPrimary ? 20 : 10,
-      }}
-    />
-  </View>
+export const Swatch = ({ color, isPrimary }: SwatchConfig_i) => (
+  <ColorSwatch
+    color={color}
+    size={isPrimary ? 20 : 12}
+    m={isPrimary ? 2 : 6}
+    radius="sm"
+  />
 );
 
+interface PaletteConfig_i {
+  palette: GeneColorMapping_t[];
+}
+
+export const Palette = ({ palette }: PaletteConfig_i) => (
+  <Flex align="center">
+    {!palette.length && <Flex style={{ height: 24 }} />}
+    {palette.map((colorMapping: GeneColorMapping_t) => (
+      <Swatch
+        color={colorMapping.color}
+        tooltip={colorMapping.name}
+        isPrimary={colorMapping.isPrimary}
+      />
+    ))}
+  </Flex>
+);
 export const LefthandGeneView = (props: {
   palette: GeneColorMapping_t[];
   gene: string;
   isAvailable: boolean;
 }) => (
-  <View style={LEFTHAND_GENE_ITEM_STYLE}>
+  <Flex
+    direction="row"
+    style={{
+      alignItems: "center",
+      gap: 4,
+      padding: 4,
+      marginTop: 2,
+      marginBottom: 2,
+      width: "100%",
+      overflow: "scroll",
+    }}
+  >
     {!props.isAvailable && <Text>!!!</Text>}
-    <Text style={LEFTHAND_GENE_ITEM_TEXT_STYLE}>{props.gene}</Text>
-    <View style={{ flexDirection: "row", marginLeft: "auto" }}>
-      {!props.palette.length && <View style={{ height: 20 }} />}
-      {props.palette.map((colorMapping: GeneColorMapping_t) => (
-        <Swatch
-          color={colorMapping.color}
-          tooltip={colorMapping.name}
-          isPrimary={colorMapping.isPrimary}
-        />
-      ))}
-    </View>
-  </View>
+    <Text>{props.gene}</Text>
+    <Flex direction="row" style={{ marginLeft: "auto" }}>
+      <Palette palette={props.palette} />
+    </Flex>
+  </Flex>
 );
 
 export default GeneList;

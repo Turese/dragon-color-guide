@@ -1,5 +1,4 @@
-import { Image, View } from "react-native";
-
+import { AspectRatio } from "@mantine/core";
 import {
   PrimaryGene_t,
   SecondaryGene_t,
@@ -8,7 +7,7 @@ import {
 import { Age_t, Pose_t } from "./constants/posesElements";
 import { useDragonCtx } from "./dragonCtx";
 
-interface BreedImageProps {
+interface BreedImageProps_i {
   pose: Pose_t;
   age: Age_t;
   primaryGene?: PrimaryGene_t;
@@ -16,22 +15,22 @@ interface BreedImageProps {
   tertiaryGene?: TertiaryGene_t;
 }
 
-function BreedImage(props: BreedImageProps) {
+function BreedImage(props: BreedImageProps_i) {
   const { breed } = useDragonCtx();
   const { pose, age } = props;
   const poseId = age === "Hatchling" ? "h" : pose === "Female" ? "f" : "m";
   const dragonId = breed?.toLowerCase();
 
   return (
-    <View style={{ height: "33%", width: "100%" }}>
+    <AspectRatio ratio={1 / 1} maw={300} mx="auto">
       {breed && (
-        <Image
+        <img
           // eslint-disable-next-line @typescript-eslint/no-require-imports
-          source={require(`./images/bases/${dragonId}-${poseId}.png`)}
-          style={{ height: "100%", resizeMode: "contain", width: "100%" }}
+          src={require(`./images/bases/${dragonId}-${poseId}.png`)}
+          style={{ height: "auto", width: "100%" }}
         />
       )}
-    </View>
+    </AspectRatio>
   );
 }
 

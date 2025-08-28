@@ -1,127 +1,96 @@
-import Select from "react-select";
-import { View, Text, Switch, DimensionValue } from "react-native";
+import {
+  Group,
+  Text,
+  InputBase,
+  Combobox,
+  useCombobox,
+  Flex,
+} from "@mantine/core";
 import { Swatch } from "./GeneList";
-import { SELECTED_COLOR } from "./constants/styles";
 
-interface SelectorProps<T> {
+interface SelectorProps_i<T extends React.Key> {
   title: string;
   onSelect: (item: T) => void;
   options: T[];
   value: T | null;
   flexDirection?: "row" | "column";
-  width?: DimensionValue;
   getColor?: (value: T) => string;
 }
 
-type SelectorOption_t<T> = { label: string; value: T; color?: string };
+function Selector<T extends React.Key>(props: SelectorProps_i<T>) {
+  const { options, onSelect, getColor, value } = props;
 
-function Selector<T>(props: SelectorProps<T>) {
-  const { title, onSelect, options, value, width, flexDirection, getColor } =
-    props;
+  const combobox = useCombobox({
+    onDropdownClose: () => combobox.resetSelectedOption(),
+  });
 
-  const formattedOptions: SelectorOption_t<T>[] = options.map((option) => ({
-    label: `${option}`,
-    value: option,
-    color: getColor ? getColor(option) : undefined,
-  }));
+  const handleValueSelect = (val: string) => {
+    onSelect(val as T);
+    combobox.closeDropdown();
+  };
 
-  return (
-    <View
-      style={{
-        alignItems: "center",
-        flexDirection: flexDirection || "row",
-        padding: 4,
-        gap: 4,
-        width: width || "100%",
-      }}
-    >
-      <View
-        style={{
-          alignItems: "flex-start",
-          width: flexDirection === "column" ? "100%" : "30%",
-        }}
-      >
-        <Text numberOfLines={1}>{title}</Text>
-      </View>
-      <View style={{ width: flexDirection === "column" ? "100%" : "70%" }}>
-        <Select
-          options={formattedOptions}
-          styles={{
-            menu: (base) => ({
-              ...base,
-              width: "max-content",
-              minWidth: "100%",
-            }),
-          }}
-          theme={(theme) => ({
-            ...theme,
-            borderColor: "#1e1914",
-            borderRadius: 8,
-            width: "100%",
-            colors: {
-              ...theme.colors,
-              primary25: "#eadfdb",
-              primary: SELECTED_COLOR,
-            },
-          })}
-          value={
-            value
-              ? ({
-                  label: `${value}`,
-                  value,
-                  color: getColor ? getColor(value) : undefined,
-                } as SelectorOption_t<T>)
-              : undefined
-          }
-          onChange={(option) => option && onSelect(option.value!)}
-          closeMenuOnSelect
-          menuPortalTarget={document.body}
-          menuPosition="fixed"
-          formatOptionLabel={(option) => {
-            return (
-              <View
-                style={{
-                  width: "100%",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 4,
-                }}
-              >
-                {option.color && <Swatch color={option.color} isPrimary />}
-                <Text numberOfLines={1}>{option.label}</Text>
-              </View>
-            );
-          }}
-        />
-      </View>
-    </View>
+  const formatOption = (option: T, fw?: string) => (
+    <Group gap="sm" wrap="nowrap">
+      <Swatch color={getColor ? getColor(option) : "#fff"} isPrimary />
+      <Text c="dark" fw={fw}>
+        {option.toString()}
+      </Text>
+    </Group>
   );
-}
 
-interface SwitchSelectorProps {
-  title: string;
-  value: boolean;
-  onSelect: () => void;
-  width?: DimensionValue;
-}
-
-export function SwitchSelector(props: SwitchSelectorProps) {
-  const { title, onSelect, value, width } = props;
+  const formattedOptions = options.map((option) => (
+    <Combobox.Option value={option.toString()} key={option}>
+      {formatOption(option, option === value ? "800" : undefined)}
+    </Combobox.Option>
+  ));
 
   return (
-    <View
-      style={{
-        alignItems: "center",
-        flexDirection: "row",
-        padding: 4,
-        width: width || "100%",
-      }}
+    <Flex
+      direction={props.flexDirection}
+      wrap="nowrap"
+      justify="stretch"
+      align="center"
+      style={{ gap: "auto" }}
+      flex={1}
     >
-      <View style={{ alignItems: "flex-start", width: "40%" }}>
-        <Text>{title}</Text>
-      </View>
-      <Switch value={value} onValueChange={onSelect} />
-    </View>
+      <Text>{props.title}</Text>
+      <Combobox
+        width="target"
+        store={combobox}
+        withinPortal={false}
+        onOptionSubmit={handleValueSelect}
+      >
+        <Combobox.Target>
+          <InputBase
+            component="button"
+            type="button"
+            style={{
+              marginLeft: "auto",
+              width: props.flexDirection === "column" ? "100%" : "50%",
+              padding: 2,
+            }}
+            pointer
+            rightSection={<Combobox.Chevron />}
+            onClick={() => combobox.toggleDropdown()}
+            rightSectionPointerEvents="none"
+          >
+            {value ? (
+              formatOption(value)
+            ) : (
+              <Text c="dimmed" size="sm">
+                {"placeholder"}
+              </Text>
+            )}
+          </InputBase>
+        </Combobox.Target>
+
+        <Combobox.Dropdown>
+          <Combobox.Options mah={300} style={{ overflowY: "auto" }}>
+            {formattedOptions}
+          </Combobox.Options>
+        </Combobox.Dropdown>
+      </Combobox>
+    </Flex>
   );
 }
 

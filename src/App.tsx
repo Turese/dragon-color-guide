@@ -1,11 +1,8 @@
 import React from "react";
-import "./App.css";
 import { Color_t, COLORS } from "./constants/colors";
-import { View, SafeAreaView, Button } from "react-native";
 
-import { SECTION_STYLE, SELECTED_COLOR } from "./constants/styles";
 import { dragonHasGene, DRAGONS } from "./constants/dragonBreeds";
-import Selector, { SwitchSelector } from "./Selector";
+import Selector from "./Selector";
 import BreedImage from "./BreedImage";
 
 import GeneList, { LefthandGeneView } from "./GeneList";
@@ -21,6 +18,8 @@ import {
 import { useDragonCtx } from "./dragonCtx";
 import { BASIC } from "./constants/genes/Basic";
 import { getGeneColorList } from "./helpers/colorMapping";
+import { Button, Flex } from "@mantine/core";
+import { SECTION_STYLE } from "./constants/styles";
 
 function App() {
   const [pose, setPose] = React.useState<Pose_t>("Female");
@@ -60,24 +59,23 @@ function App() {
   });
 
   return (
-    <SafeAreaView
-      style={[
-        {
-          backgroundColor: "#fff2e4",
-          flexDirection: "row",
-          gap: 24,
-          padding: 4,
-          height: "100%",
-          width: "100%",
-        },
-      ]}
+    <Flex
+      direction="row"
+      style={{
+        gap: 24,
+        padding: 4,
+        height: "100%",
+        width: "100%",
+        overflow: "hidden",
+        boxSizing: "border-box",
+      }}
     >
-      <View
+      <Flex
         style={{
-          ...SECTION_STYLE,
-          flex: 0.33,
-          gap: 4,
+          overflowY: "scroll",
+          flexDirection: "column",
           padding: 4,
+          flex: 0.33,
         }}
       >
         <Selector
@@ -86,34 +84,29 @@ function App() {
           value={breed}
           title="Breed"
         />
-        <View style={{ flexDirection: "row", width: "100%" }}>
-          <SwitchSelector
-            value={pose === "Female"}
-            title={pose}
-            onSelect={() => {
-              if (pose === "Female") setPose("Male");
-              else setPose("Female");
-            }}
-            width="50%"
-          />
-          <SwitchSelector
-            value={age === "Adult"}
-            title={age}
-            onSelect={() => {
-              if (age === "Adult") setAge("Hatchling");
-              else setAge("Adult");
-            }}
-            width="50%"
-          />
-        </View>
+        <Selector
+          options={["Female", "Male", "Hatchling"]}
+          onSelect={(option) => {
+            if (option === "Female" || option === "Male") {
+              setPose(option);
+              setAge("Adult");
+            } else if (option === "Hatchling") {
+              setAge("Hatchling");
+            }
+          }}
+          value={age === "Hatchling" ? "Hatchling" : pose}
+          title="Pose"
+        />
         <BreedImage age={age} pose={pose} />
-        <View style={{ flexDirection: "row", width: "100%" }}>
+        <Flex
+          direction="row"
+          style={{ width: "100%", justify: "space-between" }}
+        >
           <Selector
             options={ELEMENTS}
             onSelect={setElement}
             value={element}
             title="Element"
-            width="50%"
             flexDirection="column"
           />
           <Selector
@@ -121,10 +114,9 @@ function App() {
             onSelect={setEyeType}
             value={eyeType}
             title="Eye Type"
-            width="50%"
             flexDirection="column"
           />
-        </View>
+        </Flex>
         <Selector
           options={COLORS}
           onSelect={setPrimary}
@@ -166,34 +158,34 @@ function App() {
           }
         />
         <Button
-          title="View scry!"
-          color={SELECTED_COLOR}
-          onPress={() => {
+          variant="outline"
+          fullWidth
+          onClick={() => {
             if (scryLink) window.open(scryLink, "_blank")?.focus();
           }}
           disabled={!scryLink}
-        />
-      </View>
-      <View
+        >
+          View scry
+        </Button>
+      </Flex>
+      <Flex
         style={{
           flex: 1,
-          flexDirection: "row",
+          overflowY: "scroll",
           gap: "16px",
-          paddingBottom: 8,
-          paddingTop: 8,
         }}
       >
-        <View style={{ ...SECTION_STYLE }}>
+        <Flex style={SECTION_STYLE}>
           <GeneList key="primary" category="primary" />
-        </View>
-        <View style={{ ...SECTION_STYLE }}>
+        </Flex>
+        <Flex style={SECTION_STYLE}>
           <GeneList key="secondary" category="secondary" />
-        </View>
-        <View style={{ ...SECTION_STYLE }}>
+        </Flex>
+        <Flex style={SECTION_STYLE}>
           <GeneList key="tertiary" category="tertiary" />
-        </View>
-      </View>
-    </SafeAreaView>
+        </Flex>
+      </Flex>
+    </Flex>
   );
 }
 

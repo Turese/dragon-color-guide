@@ -1,5 +1,3 @@
-/* Keeping the colors in FR palette order */
-
 export const POSE_IDS = { Male: 0, Female: 1 };
 
 export type Pose_t = keyof typeof POSE_IDS;

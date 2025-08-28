@@ -1,20 +1,18 @@
-import { TextStyle, ViewStyle } from "react-native";
+import { MantineStyleProp } from "@mantine/core";
 
-export const SECTION_BORDER: ViewStyle = {
-  borderColor: "#1e1914",
+export const SECTION_BORDER: MantineStyleProp = {
   borderRadius: "8px",
-  borderWidth: 1,
+  border: "1px solid white",
 };
 
-export const SECTION_STYLE: ViewStyle = {
-  alignItems: "center",
-  backgroundColor: "#ffffff",
+export const SECTION_STYLE: MantineStyleProp = {
+  alignItems: "flex-start",
   flex: 1,
   overflow: "scroll",
   ...SECTION_BORDER,
 };
 
-export const GENE_ITEM_STYLE: ViewStyle = {
+export const GENE_ITEM_STYLE: MantineStyleProp = {
   alignItems: "center",
   flexDirection: "row",
   gap: 4,
@@ -23,12 +21,11 @@ export const GENE_ITEM_STYLE: ViewStyle = {
   marginBottom: 2,
   width: "100%",
   overflow: "scroll",
-  borderColor: "#1e1914",
   borderRadius: "8px",
   borderWidth: 1,
 };
 
-export const LEFTHAND_GENE_ITEM_STYLE: ViewStyle = {
+export const LEFTHAND_GENE_ITEM_STYLE: MantineStyleProp = {
   alignItems: "center",
   flexDirection: "row",
   gap: 4,
@@ -38,24 +35,12 @@ export const LEFTHAND_GENE_ITEM_STYLE: ViewStyle = {
   width: "100%",
   overflow: "scroll",
   borderRadius: "8px",
-  backgroundColor: "#f7f7f7",
 };
 
-export const LEFTHAND_GENE_ITEM_TEXT_STYLE: TextStyle = { fontWeight: 200 };
-
-export const SELECTED_COLOR = "#bcaca6";
-
-export const INVALID_ITEM_STYLE: ViewStyle = {
-  borderColor: "#ded5d2",
-  backgroundColor: "#f7f7f7",
+export const LEFTHAND_GENE_ITEM_TEXT_STYLE: MantineStyleProp = {
+  fontWeight: 200,
 };
 
-export const SELECTED_GENE_ITEM_STYLE: ViewStyle = {
-  backgroundColor: SELECTED_COLOR,
+export const SELECTED_GENE_ITEM_TEXT_STYLE: MantineStyleProp = {
+  fontWeight: "bold",
 };
-
-export const SELECTED_INVALID_ITEM_STYLE: ViewStyle = {
-  backgroundColor: "#e9e0dd",
-};
-
-export const SELECTED_GENE_ITEM_TEXT_STYLE: TextStyle = { fontWeight: "bold" };
