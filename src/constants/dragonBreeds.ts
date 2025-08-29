@@ -3,6 +3,7 @@ import {
   AETHER_GENE_MAPPINGS,
   AURABOA_GENE_MAPPINGS,
   BANESCALE_GENE_MAPPINGS,
+  CIRRUS_GENE_MAPPINGS,
   DUSTHIDE_GENE_MAPPINGS,
   EVERLUX_GENE_MAPPINGS,
   GAOLER_GENE_MAPPINGS,
@@ -21,6 +22,7 @@ export const DRAGON_IDS = {
   Auraboa: 24,
   Banescale: 18,
   Bogsneak: 14,
+  Cirrus: 27,
   Coatl: 12,
   Dusthide: 25,
   Everlux: 26,
@@ -50,6 +52,7 @@ export const GENE_MAPPINGS: Record<Dragon_t, GeneRecord_t> = {
   Auraboa: AURABOA_GENE_MAPPINGS,
   Banescale: BANESCALE_GENE_MAPPINGS,
   Bogsneak: MODERN_GENE_MAPPINGS,
+  Cirrus: CIRRUS_GENE_MAPPINGS,
   Coatl: MODERN_GENE_MAPPINGS,
   Dusthide: DUSTHIDE_GENE_MAPPINGS,
   Everlux: EVERLUX_GENE_MAPPINGS,
@@ -80,7 +83,7 @@ export const DRAGONS: Dragon_t[] = Object.keys(DRAGON_IDS) as Dragon_t[];
 export function dragonHasGene(
   breed: Dragon_t,
   category: GeneCategory_t,
-  gene: Gene_t,
+  gene: Gene_t
 ): boolean {
   return gene in GENE_MAPPINGS[breed][category];
 }

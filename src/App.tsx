@@ -1,11 +1,11 @@
 import React from "react";
 import { Color_t, COLORS } from "./constants/colors";
 
-import { dragonHasGene, DRAGONS } from "./constants/dragonBreeds";
+import { Dragon_t, dragonHasGene, DRAGONS } from "./constants/dragonBreeds";
 import Selector from "./Selector";
 import BreedImage from "./BreedImage";
 
-import GeneList, { LefthandGeneView } from "./GeneList";
+import GeneList, { LefthandGeneView, Swatch } from "./GeneList";
 import { generateScryLink } from "./helpers/scryLink";
 import {
   Age_t,
@@ -78,14 +78,21 @@ function App() {
           flex: 0.33,
         }}
       >
-        <Selector
+        <Selector<Dragon_t>
           options={DRAGONS}
           onSelect={setBreed}
           value={breed}
           title="Breed"
           search
+          getImage={(breed: Dragon_t) => (
+            <img
+              // eslint-disable-next-line @typescript-eslint/no-require-imports
+              src={require(`./images/dragons/${breed}.png`)}
+              style={{ height: 20, width: 20 }}
+            />
+          )}
         />
-        <Selector
+        <Selector<"Female" | "Male" | "Hatchling">
           options={["Female", "Male", "Hatchling"]}
           onSelect={(option) => {
             if (option === "Female" || option === "Male") {
@@ -97,35 +104,52 @@ function App() {
           }}
           value={age === "Hatchling" ? "Hatchling" : pose}
           title="Pose"
+          getImage={(pose) => (
+            <img
+              // eslint-disable-next-line @typescript-eslint/no-require-imports
+              src={require(`./images/poses/${pose}.png`)}
+              style={{ height: 20, width: 20 }}
+            />
+          )}
         />
         <BreedImage age={age} pose={pose} />
         <Flex
           direction="row"
           style={{ width: "100%", justify: "space-between" }}
         >
-          <Selector
+          <Selector<Element_t>
             options={ELEMENTS}
             onSelect={setElement}
             value={element}
             title="Element"
             flexDirection="column"
             search
+            getImage={(element: Element_t) => (
+              <img
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                src={require(`./images/elements/${element}.png`)}
+                style={{ height: 20, width: 20 }}
+              />
+            )}
           />
-          <Selector
+          <Selector<EyeType_t>
             options={EYETYPES}
             onSelect={setEyeType}
             value={eyeType}
             title="Eye Type"
             flexDirection="column"
             search
+            getImage={(pose) => <></>}
           />
         </Flex>
-        <Selector
+        <Selector<Color_t>
           options={COLORS}
           onSelect={setPrimary}
           value={primary}
           title="Primary"
-          getColor={(color: Color_t) => BASIC[color]["Main"]}
+          getImage={(color: Color_t) => (
+            <Swatch color={BASIC[color]["Main"]} isPrimary />
+          )}
           search
         />
         <LefthandGeneView
@@ -133,12 +157,14 @@ function App() {
           palette={getGeneColorList(primary, primaryGene, "primary")}
           isAvailable={dragonHasGene(breed, "primary", primaryGene)}
         />
-        <Selector
+        <Selector<Color_t>
           options={COLORS}
           onSelect={setSecondary}
           value={secondary}
           title="Secondary"
-          getColor={(color: Color_t) => BASIC[color]["Main"]}
+          getImage={(color: Color_t) => (
+            <Swatch color={BASIC[color]["Main"]} isPrimary />
+          )}
           search
         />
         <LefthandGeneView
@@ -146,12 +172,14 @@ function App() {
           palette={getGeneColorList(secondary, secondaryGene, "secondary")}
           isAvailable={dragonHasGene(breed, "secondary", secondaryGene)}
         />
-        <Selector
+        <Selector<Color_t>
           options={COLORS}
           onSelect={setTertiary}
           value={tertiary}
           title="Tertiary"
-          getColor={(color: Color_t) => BASIC[color]["Main"]}
+          getImage={(color: Color_t) => (
+            <Swatch color={BASIC[color]["Main"]} isPrimary />
+          )}
           search
         />
         <LefthandGeneView

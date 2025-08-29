@@ -9,18 +9,18 @@ import {
 import { Swatch } from "./GeneList";
 import React from "react";
 
-interface SelectorProps_i<T extends React.Key> {
+interface SelectorProps_i<T extends string> {
   title: string;
   onSelect: (item: T) => void;
   options: T[];
   value: T;
   flexDirection?: "row" | "column";
-  getColor?: (value: T) => string;
+  getImage: (value: T) => React.ReactElement;
   search?: boolean;
 }
 
-function Selector<T extends React.Key>(props: SelectorProps_i<T>) {
-  const { options, onSelect, getColor, value } = props;
+function Selector<T extends string>(props: SelectorProps_i<T>) {
+  const { options, onSelect, getImage, value } = props;
 
   const [search, setSearch] = React.useState("");
 
@@ -41,21 +41,21 @@ function Selector<T extends React.Key>(props: SelectorProps_i<T>) {
 
   const formatOption = (option: T, fw?: string) => (
     <Group gap="sm" wrap="nowrap">
-      <Swatch color={getColor ? getColor(option) : "#fff"} isPrimary />
+      {getImage(option)}
       <Text c="dark" fw={fw}>
-        {option.toString()}
+        {option}
       </Text>
     </Group>
   );
 
   const filteredOptions = props.search
     ? options.filter((option) =>
-        option.toString().toLowerCase().includes(search.toLowerCase())
+        option.toLowerCase().includes(search.toLowerCase())
       )
     : options;
 
   const formattedOptions = filteredOptions.map((option) => (
-    <Combobox.Option value={option.toString()} key={option}>
+    <Combobox.Option value={option} key={option}>
       {formatOption(option, option === value ? "800" : undefined)}
     </Combobox.Option>
   ));
