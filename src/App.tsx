@@ -83,6 +83,7 @@ function App() {
           onSelect={setBreed}
           value={breed}
           title="Breed"
+          search
         />
         <Selector
           options={["Female", "Male", "Hatchling"]}
@@ -108,6 +109,7 @@ function App() {
             value={element}
             title="Element"
             flexDirection="column"
+            search
           />
           <Selector
             options={EYETYPES}
@@ -115,6 +117,7 @@ function App() {
             value={eyeType}
             title="Eye Type"
             flexDirection="column"
+            search
           />
         </Flex>
         <Selector
@@ -123,11 +126,12 @@ function App() {
           value={primary}
           title="Primary"
           getColor={(color: Color_t) => BASIC[color]["Main"]}
+          search
         />
         <LefthandGeneView
           gene={primaryGene}
           palette={getGeneColorList(primary, primaryGene, "primary")}
-          isAvailable={!!breed && dragonHasGene(breed, "primary", primaryGene)}
+          isAvailable={dragonHasGene(breed, "primary", primaryGene)}
         />
         <Selector
           options={COLORS}
@@ -135,13 +139,12 @@ function App() {
           value={secondary}
           title="Secondary"
           getColor={(color: Color_t) => BASIC[color]["Main"]}
+          search
         />
         <LefthandGeneView
           gene={secondaryGene}
           palette={getGeneColorList(secondary, secondaryGene, "secondary")}
-          isAvailable={
-            !!breed && dragonHasGene(breed, "secondary", secondaryGene)
-          }
+          isAvailable={dragonHasGene(breed, "secondary", secondaryGene)}
         />
         <Selector
           options={COLORS}
@@ -149,13 +152,12 @@ function App() {
           value={tertiary}
           title="Tertiary"
           getColor={(color: Color_t) => BASIC[color]["Main"]}
+          search
         />
         <LefthandGeneView
           gene={tertiaryGene}
           palette={getGeneColorList(tertiary, tertiaryGene, "tertiary")}
-          isAvailable={
-            !!breed && dragonHasGene(breed, "tertiary", tertiaryGene)
-          }
+          isAvailable={dragonHasGene(breed, "tertiary", tertiaryGene)}
         />
         <Button
           variant="outline"

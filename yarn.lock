@@ -1863,10 +1863,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.5.tgz#4fc56c15c580b9adb7dc3c333a134e540b44bfb1"
   integrity sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==
 
-"@mantine/core@^8.2.4":
-  version "8.2.4"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-8.2.4.tgz#2e28effa7680b2311c676a5f8daac86d00c2366c"
-  integrity sha512-bZBxt6CFNLleARe5Ni2oYOcuRdi8ZEaxoZBmdc3sQu24tiX61xTKtjOfHaPffNMpqNQoIbgOi955rk3t1KSLig==
+"@mantine/core@^8.2.7":
+  version "8.2.7"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-8.2.7.tgz#4620765b935e9c4d50aafcdead618ea6f8dd2038"
+  integrity sha512-gfVDf/qFxt66PrsktYEJt/MZbiNo3KCx6PxKKcskSe/J2g5g1kf4nhhvBFlYaicDX93PfT4MgTnipyfJQ09NDA==
   dependencies:
     "@floating-ui/react" "^0.26.28"
     clsx "^2.1.1"
@@ -1875,10 +1875,10 @@
     react-textarea-autosize "8.5.9"
     type-fest "^4.27.0"
 
-"@mantine/hooks@^8.2.4":
-  version "8.2.4"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-8.2.4.tgz#2dba93edb0a26d037dfcac4017860057a82e2643"
-  integrity sha512-ZXQ0uk6UtJa6Gl+ZWMBh4wC7UqCAoWWvau1TOoe05sBrkyGcXSVrTfoCVzjEQaB/h8VEOUWLGtJokkiMQKcMzA==
+"@mantine/hooks@^8.2.7":
+  version "8.2.7"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-8.2.7.tgz#815bfbd1cbfb439b30d8aa33c520af0eba8bd5de"
+  integrity sha512-DV0RdFBI0g0Bu7CWipIIiPK6d8+pTNXTbIOF4N+VZ6LAIpZPk5ldtb8sGaTVyQtQhEjrChrCxfkrLiNGTOAwiw==
 
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"

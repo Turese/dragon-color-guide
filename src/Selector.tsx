@@ -7,21 +7,31 @@ import {
   Flex,
 } from "@mantine/core";
 import { Swatch } from "./GeneList";
+import React from "react";
 
 interface SelectorProps_i<T extends React.Key> {
   title: string;
   onSelect: (item: T) => void;
   options: T[];
-  value: T | null;
+  value: T;
   flexDirection?: "row" | "column";
   getColor?: (value: T) => string;
+  search?: boolean;
 }
 
 function Selector<T extends React.Key>(props: SelectorProps_i<T>) {
   const { options, onSelect, getColor, value } = props;
 
+  const [search, setSearch] = React.useState("");
+
   const combobox = useCombobox({
-    onDropdownClose: () => combobox.resetSelectedOption(),
+    onDropdownClose: () => {
+      combobox.resetSelectedOption();
+      setSearch("");
+    },
+    onDropdownOpen: () => {
+      if (props.search) combobox.focusSearchInput();
+    },
   });
 
   const handleValueSelect = (val: string) => {
@@ -38,34 +48,37 @@ function Selector<T extends React.Key>(props: SelectorProps_i<T>) {
     </Group>
   );
 
-  const formattedOptions = options.map((option) => (
+  const filteredOptions = props.search
+    ? options.filter((option) =>
+        option.toString().toLowerCase().includes(search.toLowerCase())
+      )
+    : options;
+
+  const formattedOptions = filteredOptions.map((option) => (
     <Combobox.Option value={option.toString()} key={option}>
       {formatOption(option, option === value ? "800" : undefined)}
     </Combobox.Option>
   ));
 
+  React.useEffect(() => {
+    combobox.selectFirstOption();
+  }, [search]);
+
   return (
     <Flex
       direction={props.flexDirection}
       wrap="nowrap"
-      justify="stretch"
+      justify="space-between"
       align="center"
-      style={{ gap: "auto" }}
       flex={1}
     >
       <Text>{props.title}</Text>
-      <Combobox
-        width="target"
-        store={combobox}
-        withinPortal={false}
-        onOptionSubmit={handleValueSelect}
-      >
-        <Combobox.Target>
+      <Combobox store={combobox} onOptionSubmit={handleValueSelect}>
+        <Combobox.DropdownTarget>
           <InputBase
             component="button"
-            type="button"
             style={{
-              marginLeft: "auto",
+              marginLeft: props.flexDirection === "column" ? 0 : "auto",
               width: props.flexDirection === "column" ? "100%" : "50%",
               padding: 2,
             }}
@@ -74,17 +87,17 @@ function Selector<T extends React.Key>(props: SelectorProps_i<T>) {
             onClick={() => combobox.toggleDropdown()}
             rightSectionPointerEvents="none"
           >
-            {value ? (
-              formatOption(value)
-            ) : (
-              <Text c="dimmed" size="sm">
-                {"placeholder"}
-              </Text>
-            )}
+            {formatOption(value)}
           </InputBase>
-        </Combobox.Target>
-
+        </Combobox.DropdownTarget>
         <Combobox.Dropdown>
+          {props.search && (
+            <Combobox.Search
+              value={search}
+              onChange={(event) => setSearch(event.currentTarget.value)}
+              placeholder="Search"
+            />
+          )}
           <Combobox.Options mah={300} style={{ overflowY: "auto" }}>
             {formattedOptions}
           </Combobox.Options>

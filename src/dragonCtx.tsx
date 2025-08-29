@@ -9,7 +9,7 @@ import {
 import { Dragon_t } from "./constants/dragonBreeds";
 
 interface DragonState {
-  breed: Dragon_t | null;
+  breed: Dragon_t;
   setBreed: (b: Dragon_t) => void;
 
   primary: Color_t;
