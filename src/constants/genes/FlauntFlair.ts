@@ -2307,7 +2307,6 @@ export const FLAUNT_KEYS = [
   "Body mid",
   "Body lower",
   "Stripes",
-  "Below Stripes",
   "Tips",
   "Tips blend",
   "Belly",
@@ -2321,7 +2320,6 @@ export const FLAIR_KEYS = [
   "Body mid",
   "Body lower",
   "Stripes",
-  "Below Stripes",
   "Tips",
   "Tips blend",
 ];

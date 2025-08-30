@@ -12,7 +12,16 @@ import {
 import { dragonHasGene } from "./constants/dragonBreeds";
 import { GeneColorMapping_t, getGeneColorList } from "./helpers/colorMapping";
 import { useDragonCtx } from "./dragonCtx";
-import { Button, ColorSwatch, Flex, Text, Tooltip } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  ColorSwatch,
+  Flex,
+  Text,
+  Tooltip,
+} from "@mantine/core";
+
+import { IconBan, IconHeart } from "@tabler/icons-react";
 
 interface GeneListProps {
   category: GeneCategory_t;
@@ -182,7 +191,18 @@ export const LefthandGeneView = (props: {
       overflow: "scroll",
     }}
   >
-    {!props.isAvailable && <Text>!!!</Text>}
+    {!props.isAvailable && (
+      <Tooltip label="Gene is not available for this breed">
+        <ActionIcon
+          size="sm"
+          variant="transparent"
+          data-disabled
+          onClick={(event) => event.preventDefault()}
+        >
+          <IconBan />
+        </ActionIcon>
+      </Tooltip>
+    )}
     <Text>{props.gene}</Text>
     <Flex direction="row" style={{ marginLeft: "auto" }}>
       <Palette palette={props.palette} />

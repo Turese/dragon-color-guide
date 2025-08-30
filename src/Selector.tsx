@@ -6,7 +6,6 @@ import {
   useCombobox,
   Flex,
 } from "@mantine/core";
-import { Swatch } from "./GeneList";
 import React from "react";
 
 interface SelectorProps_i<T extends string> {

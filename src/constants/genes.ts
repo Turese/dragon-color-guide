@@ -1649,7 +1649,7 @@ export const PRIMARY_GENES: PrimaryGene_t[] = uniq([
   ...Object.keys(SANDSURGE_PRIMARY_IDS),
   ...Object.keys(UNDERTIDE_PRIMARY_IDS),
   ...Object.keys(VEILSPUN_PRIMARY_IDS),
-]).sort() as PrimaryGene_t[]; //todo: union all the ancient primary genes
+]).sort() as PrimaryGene_t[];
 
 export const SECONDARY_GENES: SecondaryGene_t[] = uniq([
   ...Object.keys(MODERN_SECONDARY_IDS),
@@ -1664,7 +1664,7 @@ export const SECONDARY_GENES: SecondaryGene_t[] = uniq([
   ...Object.keys(SANDSURGE_SECONDARY_IDS),
   ...Object.keys(UNDERTIDE_SECONDARY_IDS),
   ...Object.keys(VEILSPUN_SECONDARY_IDS),
-]).sort() as SecondaryGene_t[]; //todo: union all the ancient primary genes
+]).sort() as SecondaryGene_t[];
 
 export const TERTIARY_GENES: TertiaryGene_t[] = uniq([
   ...Object.keys(MODERN_TERTIARY_IDS),
@@ -1679,4 +1679,4 @@ export const TERTIARY_GENES: TertiaryGene_t[] = uniq([
   ...Object.keys(SANDSURGE_TERTIARY_IDS),
   ...Object.keys(UNDERTIDE_TERTIARY_IDS),
   ...Object.keys(VEILSPUN_TERTIARY_IDS),
-]).sort() as TertiaryGene_t[]; //todo: union all the ancient primary genes
+]).sort() as TertiaryGene_t[];
