@@ -41,7 +41,7 @@ function Selector<T extends string>(props: SelectorProps_i<T>) {
   const formatOption = (option: T, fw?: string) => (
     <Group gap="sm" wrap="nowrap">
       {getImage(option)}
-      <Text c="dark" fw={fw}>
+      <Text truncate c="dark" fw={fw}>
         {option}
       </Text>
     </Group>
@@ -54,7 +54,7 @@ function Selector<T extends string>(props: SelectorProps_i<T>) {
     : options;
 
   const formattedOptions = filteredOptions.map((option) => (
-    <Combobox.Option value={option} key={option}>
+    <Combobox.Option value={option} key={option} selected={option === value}>
       {formatOption(option, option === value ? "800" : undefined)}
     </Combobox.Option>
   ));
@@ -71,7 +71,7 @@ function Selector<T extends string>(props: SelectorProps_i<T>) {
       align="center"
       flex={1}
     >
-      <Text>{props.title}</Text>
+      <Text truncate>{props.title}</Text>
       <Combobox store={combobox} onOptionSubmit={handleValueSelect}>
         <Combobox.DropdownTarget>
           <InputBase
@@ -89,7 +89,7 @@ function Selector<T extends string>(props: SelectorProps_i<T>) {
             {formatOption(value)}
           </InputBase>
         </Combobox.DropdownTarget>
-        <Combobox.Dropdown>
+        <Combobox.Dropdown miw={200}>
           {props.search && (
             <Combobox.Search
               value={search}

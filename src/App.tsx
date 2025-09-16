@@ -32,14 +32,6 @@ import { IconBrandGithub, IconInfoCircle } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { InfoModal } from "./InfoModal";
 
-const SECTION_STYLE: MantineStyleProp = {
-  alignItems: "flex-start",
-  flex: 1,
-  overflowY: "scroll",
-  scrollbarGutter: "stable",
-  border: "1px solid",
-};
-
 function App() {
   const [pose, setPose] = React.useState<Pose_t>("Female");
 
@@ -90,6 +82,7 @@ function App() {
         style={{
           padding: 8,
           background: theme.colors.blue[4],
+          flex: 1,
         }}
       >
         <Text size="xl" fw={700} c={theme.colors.blue[0]}>
@@ -124,15 +117,16 @@ function App() {
           gap: 12,
           padding: 4,
           overflow: "hidden",
-          boxSizing: "border-box",
         }}
       >
         <Flex
+          flex="1 1 0"
           style={{
             overflowY: "scroll",
             flexDirection: "column",
             padding: 4,
-            flex: 0.33,
+            width: "100%",
+            overflowX: "scroll",
           }}
         >
           <Selector<Dragon_t>
@@ -255,23 +249,9 @@ function App() {
             View scry
           </Button>
         </Flex>
-        <Flex
-          style={{
-            flex: 1,
-            overflowY: "scroll",
-            gap: 12,
-          }}
-        >
-          <Flex style={SECTION_STYLE}>
-            <GeneList key="primary" category="primary" />
-          </Flex>
-          <Flex style={SECTION_STYLE}>
-            <GeneList key="secondary" category="secondary" />
-          </Flex>
-          <Flex style={SECTION_STYLE}>
-            <GeneList key="tertiary" category="tertiary" />
-          </Flex>
-        </Flex>
+        <GeneList key="primary" category="primary" />
+        <GeneList key="secondary" category="secondary" />
+        <GeneList key="tertiary" category="tertiary" />
       </Flex>
     </Flex>
   );
