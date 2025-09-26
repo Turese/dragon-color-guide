@@ -42,7 +42,7 @@ function GeneList(props: GeneListProps) {
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
 
-  const [sort, setSort] = React.useState<"abc" | "available">("abc");
+  const [sort, setSort] = React.useState<"abc" | "available">("available");
   const [asc, setAsc] = React.useState<boolean>(true);
 
   const {
@@ -62,11 +62,12 @@ function GeneList(props: GeneListProps) {
     const ascModifier = asc ? 1 : -1;
     // availability case
     if (sort === "available") {
-      if (dragonHasGene(breed, category, b)) return 1 * ascModifier;
-      else if (dragonHasGene(breed, category, a)) return -1 * ascModifier;
-      else return -1;
+      const AhasGene = dragonHasGene(breed, category, a);
+      const BhasGene = dragonHasGene(breed, category, b);
+      if (AhasGene && !BhasGene) return -1 * ascModifier;
+      else if (BhasGene && !AhasGene) return 1 * ascModifier;
     }
-    // alphabetical case
+    // alphabetical case (base case for availability case)
     if (a > b) {
       return 1 * ascModifier;
     } else return -1 * ascModifier;

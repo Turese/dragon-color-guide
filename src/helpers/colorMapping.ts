@@ -183,6 +183,120 @@ import {
   TAPIR_STRIATION,
   TAPIR_STRIATION_MAIN,
 } from "../constants/genes/TapirStriation";
+import {
+  PARADISE,
+  PARADISE_KEYS,
+  PARADISE_MAIN,
+} from "../constants/genes/Paradise";
+import { GECKO, GECKO_KEYS, GECKO_MAIN } from "../constants/genes/Gecko";
+import { RUNES, RUNES_KEYS, RUNES_MAIN } from "./Runes";
+import {
+  ECLIPSE,
+  ECLIPSE_KEYS,
+  ECLIPSE_MAIN,
+} from "../constants/genes/Eclipse";
+import {
+  FLAMEFORGER,
+  FLAMEFORGER_KEYS,
+  FLAMEFORGER_MAIN,
+} from "../constants/genes/Flameforger";
+import { SCALES, SCALES_KEYS, SCALES_MAIN } from "../constants/genes/Scales";
+import { WISH, WISH_KEYS, WISH_MAIN } from "../constants/genes/Wish";
+import { OKAPI, OKAPI_KEYS, OKAPI_MAIN } from "../constants/genes/Okapi";
+import { KEEL, KEEL_KEYS, KEEL_MAIN } from "../constants/genes/Keel";
+import {
+  BLOSSOM,
+  BLOSSOM_KEYS,
+  BLOSSOM_MAIN,
+} from "../constants/genes/Blossom";
+import {
+  CAPSULE,
+  CAPSULE_KEYS,
+  CAPSULE_MAIN,
+} from "../constants/genes/Capsule";
+import {
+  GLIMMER,
+  GLIMMER_KEYS,
+  GLIMMER_MAIN,
+} from "../constants/genes/Glimmer";
+import {
+  CARNIVORE,
+  CARNIVORE_KEYS,
+  CARNIVORE_MAIN,
+} from "../constants/genes/Carnivore";
+import { CREST, CREST_KEYS, CREST_MAIN } from "../constants/genes/Crest";
+import { BRAIDS, BRAIDS_KEYS, BRAIDS_MAIN } from "../constants/genes/Braids";
+import { MEDUSA, MEDUSA_KEYS, MEDUSA_MAIN } from "../constants/genes/Medusa";
+import { DECO, DECO_KEYS, DECO_MAIN } from "../constants/genes/Deco";
+import {
+  SCORPION,
+  SCORPION_KEYS,
+  SCORPION_MAIN,
+} from "../constants/genes/Scorpion";
+import {
+  MANDIBLES_KEYS,
+  MANDIBLES,
+  MANDIBLES_MAIN,
+} from "../constants/genes/Mandibles";
+import {
+  SPECTRE,
+  SPECTRE_KEYS,
+  SPECTRE_MAIN,
+} from "../constants/genes/Spectre";
+import {
+  AUGMENT,
+  AUGMENT_KEYS,
+  AUGMENT_MAIN,
+} from "../constants/genes/Augment";
+import {
+  MONARCH,
+  MONARCH_KEYS,
+  MONARCH_MAIN,
+} from "../constants/genes/Monarch";
+import { GHOST, GHOST_KEYS, GHOST_MAIN } from "../constants/genes/Ghost";
+import {
+  BRANCHES,
+  BRANCHES_KEYS,
+  BRANCHES_MAIN,
+} from "../constants/genes/Branches";
+import {
+  NUDIBRANCH,
+  NUDIBRANCH_KEYS,
+  NUDIBRANCH_MAIN,
+} from "../constants/genes/Nudibranch";
+import { SHARK, SHARK_KEYS, SHARK_MAIN } from "../constants/genes/Shark";
+import {
+  STARFALL,
+  STARFALL_KEYS,
+  STARFALL_MAIN,
+} from "../constants/genes/Starfall";
+import {
+  CRACKLE,
+  CRACKLE_KEYS,
+  CRACKLE_MAIN,
+} from "../constants/genes/Crackle";
+import { CORAL, CORAL_KEYS, CORAL_MAIN } from "../constants/genes/Coral";
+import {
+  ROCKBREAKER,
+  ROCKBREAKER_KEYS,
+  ROCKBREAKER_MAIN,
+} from "../constants/genes/Rockbreaker";
+import { THORNS, THORNS_KEYS, THORNS_MAIN } from "../constants/genes/Thorns";
+import { SPORES, SPORES_KEYS, SPORES_MAIN } from "../constants/genes/Spores";
+import { FANGS, FANGS_KEYS, FANGS_MAIN } from "../constants/genes/Fangs";
+import {
+  POLYPORE,
+  POLYPORE_KEYS,
+  POLYPORE_MAIN,
+} from "../constants/genes/Polypore";
+import { JEWELS, JEWELS_KEYS, JEWELS_MAIN } from "../constants/genes/Jewels";
+import {
+  FIREBREATHER,
+  FIREBREATHER_KEYS,
+  FIREBREATHER_MAIN,
+} from "../constants/genes/Firebreather";
+import { FRILLS, FRILLS_KEYS, FRILLS_MAIN } from "../constants/genes/Frills";
+import { CHITIN, CHITIN_KEYS, CHITIN_MAIN } from "../constants/genes/Chitin";
 
 export type PrimaryMapping_t = Record<PrimaryGene_t, string[] | null>;
 export type SecondaryMapping_t = Record<SecondaryGene_t, string[] | null>;
@@ -195,268 +309,531 @@ export type GeneColorMapping_t = {
 };
 
 const makeMapping = (
-  key: string,
+  keys: string[],
   color: Color_t,
   mapping: Record<Color_t, Record<string, string>>,
   primaryMapping: Record<string, true>,
-): GeneColorMapping_t => ({
-  color: mapping[color][key],
-  name: key,
-  isPrimary: primaryMapping[key],
-});
+): GeneColorMapping_t[] => {
+  return keys.map((key) => ({
+    color: mapping[color][key],
+    name: key,
+    isPrimary: primaryMapping[key],
+  }));
+};
+
+type GeneInfo_t = {
+  keys: string[];
+  mapping: Record<Color_t, Record<string, string>>;
+  primaryMapping: Record<string, true>;
+};
+
+const geneMappings: Partial<Record<Gene_t, GeneInfo_t>> = {
+  Arc: { keys: ARC_KEYS, mapping: ARC_LOOP, primaryMapping: ARC_LOOP_MAIN },
+  Arapaima: {
+    keys: ARAPAIMA_KEYS,
+    mapping: ARAPAIMA_AROWANA,
+    primaryMapping: ARAPAIMA_AROWANA_MAIN,
+  },
+  Arowana: {
+    keys: AROWANA_KEYS,
+    mapping: ARAPAIMA_AROWANA,
+    primaryMapping: ARAPAIMA_AROWANA_MAIN,
+  },
+  Augment: {
+    keys: AUGMENT_KEYS,
+    mapping: AUGMENT,
+    primaryMapping: AUGMENT_MAIN,
+  },
+  Bar: { keys: BAR_KEYS, mapping: BAR_DAUB, primaryMapping: BAR_DAUB_MAIN },
+  Batty: { keys: BATTY_KEYS, mapping: BATTY, primaryMapping: BATTY_MAIN },
+  Blaze: {
+    keys: BLAZE_KEYS,
+    mapping: CINDER_BLAZE,
+    primaryMapping: CINDER_BLAZE_MAIN,
+  },
+  Beard: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Blend: {
+    keys: BLEND_KEYS,
+    mapping: FADE_BLEND,
+    primaryMapping: FADE_BLEND_MAIN,
+  },
+  Blossom: {
+    keys: BLOSSOM_KEYS,
+    mapping: BLOSSOM,
+    primaryMapping: BLOSSOM_MAIN,
+  },
+  Boa: { keys: BOA_KEYS, mapping: BOA_SADDLE, primaryMapping: BOA_SADDLE_MAIN },
+  Boulder: {
+    keys: BOULDER_MYRID_KEYS,
+    mapping: BOULDER_MYRID,
+    primaryMapping: BOULDER_MYRID_MAIN,
+  },
+  Braids: { keys: BRAIDS_KEYS, mapping: BRAIDS, primaryMapping: BRAIDS_MAIN },
+  Branches: {
+    keys: BRANCHES_KEYS,
+    mapping: BRANCHES,
+    primaryMapping: BRANCHES_MAIN,
+  },
+  Breakup: {
+    keys: BREAKUP_KEYS,
+    mapping: MOSAIC_BREAKUP,
+    primaryMapping: MOSAIC_BREAKUP_MAIN,
+  },
+  Capsule: {
+    keys: CAPSULE_KEYS,
+    mapping: CAPSULE,
+    primaryMapping: CAPSULE_MAIN,
+  },
+  Carnivore: {
+    keys: CARNIVORE_KEYS,
+    mapping: CARNIVORE,
+    primaryMapping: CARNIVORE_MAIN,
+  },
+  Caterpillar: {
+    keys: CATERPILLAR_KEYS,
+    mapping: CATERPILLAR_LARVAE,
+    primaryMapping: CATERPILLAR_LARVAE_MAIN,
+  },
+  Checkers: {
+    keys: CHECKERS_KEYS,
+    mapping: CHECKERS_CHESS,
+    primaryMapping: CHECKERS_CHESS_MAIN,
+  },
+  Cherub: {
+    keys: CHERUB_KEYS,
+    mapping: CHERUB_SERAPH,
+    primaryMapping: CHERUB_SERAPH_MAIN,
+  },
+  Chess: {
+    keys: CHESS_KEYS,
+    mapping: CHECKERS_CHESS,
+    primaryMapping: CHECKERS_CHESS_MAIN,
+  },
+  Chitin: {
+    keys: CHITIN_KEYS,
+    mapping: CHITIN,
+    primaryMapping: CHITIN_MAIN,
+  },
+  Choir: {
+    keys: CHOIR_KEYS,
+    mapping: CHORUS_CHOIR,
+    primaryMapping: CHORUS_CHOIR_MAIN,
+  },
+  Chorus: {
+    keys: CHORUS_KEYS,
+    mapping: CHORUS_CHOIR,
+    primaryMapping: CHORUS_CHOIR_MAIN,
+  },
+  Circuit: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Cinder: {
+    keys: CINDER_KEYS,
+    mapping: CINDER_BLAZE,
+    primaryMapping: CINDER_BLAZE_MAIN,
+  },
+  Clown: {
+    keys: CLOWN_KEYS,
+    mapping: CLOWN_EYESPOTS,
+    primaryMapping: CLOWN_EYESPOTS_MAIN,
+  },
+  Contour: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Coral: {
+    keys: CORAL_KEYS,
+    mapping: CORAL,
+    primaryMapping: CORAL_MAIN,
+  },
+  Crackle: {
+    keys: CRACKLE_KEYS,
+    mapping: CRACKLE,
+    primaryMapping: CRACKLE_MAIN,
+  },
+  Crest: {
+    keys: CREST_KEYS,
+    mapping: CREST,
+    primaryMapping: CREST_MAIN,
+  },
+  Darts: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Daub: { keys: DAUB_KEYS, mapping: BAR_DAUB, primaryMapping: BAR_DAUB_MAIN },
+  Deco: { keys: DECO_KEYS, mapping: DECO, primaryMapping: DECO_MAIN },
+  Display: {
+    keys: DISPLAY_KEYS,
+    mapping: DISPLAY_PARADE,
+    primaryMapping: DISPLAY_PARADE_MAIN,
+  },
+  Eclipse: {
+    keys: ECLIPSE_KEYS,
+    mapping: ECLIPSE,
+    primaryMapping: ECLIPSE_MAIN,
+  },
+  Eel: { keys: EEL_KEYS, mapping: RIBBON_EEL, primaryMapping: RIBBON_EEL_MAIN },
+  "Eye Spots": {
+    keys: EYESPOTS_KEYS,
+    mapping: CLOWN_EYESPOTS,
+    primaryMapping: CLOWN_EYESPOTS_MAIN,
+  },
+  Fade: {
+    keys: FADE_KEYS,
+    mapping: FADE_BLEND,
+    primaryMapping: FADE_BLEND_MAIN,
+  },
+  Fangs: {
+    keys: FANGS_KEYS,
+    mapping: FANGS,
+    primaryMapping: FANGS_MAIN,
+  },
+  Fern: {
+    keys: FERN_PAISLEY_KEYS,
+    mapping: FERN_PAISLEY,
+    primaryMapping: FERN_PAISLEY_MAIN,
+  },
+  Firebreather: {
+    keys: FIREBREATHER_KEYS,
+    mapping: FIREBREATHER,
+    primaryMapping: FIREBREATHER_MAIN,
+  },
+  Firefly: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Flair: {
+    keys: FLAIR_KEYS,
+    mapping: FLAUNT_FLAIR,
+    primaryMapping: FLAUNT_FLAIR_MAIN,
+  },
+  Flameforger: {
+    keys: FLAMEFORGER_KEYS,
+    mapping: FLAMEFORGER,
+    primaryMapping: FLAMEFORGER_MAIN,
+  },
+  Flaunt: {
+    keys: FLAUNT_KEYS,
+    mapping: FLAUNT_FLAIR,
+    primaryMapping: FLAUNT_FLAIR_MAIN,
+  },
+  Frills: {
+    keys: FRILLS_KEYS,
+    mapping: FRILLS,
+    primaryMapping: FRILLS_MAIN,
+  },
+  Gecko: { keys: GECKO_KEYS, mapping: GECKO, primaryMapping: GECKO_MAIN },
+  Ghost: {
+    keys: GHOST_KEYS,
+    mapping: GHOST,
+    primaryMapping: GHOST_MAIN,
+  },
+  Giraffe: {
+    keys: GIRAFFE_KEYS,
+    mapping: GIRAFFE_HEX,
+    primaryMapping: GIRAFFE_HEX_MAIN,
+  },
+  Glimmer: {
+    keys: GLIMMER_KEYS,
+    mapping: GLIMMER,
+    primaryMapping: GLIMMER_MAIN,
+  },
+  Harlequin: {
+    keys: HARLEQUIN_KEYS,
+    mapping: HARLEQUIN_JESTER,
+    primaryMapping: HARLEQUIN_JESTER_MAIN,
+  },
+  Hex: {
+    keys: HEX_KEYS,
+    mapping: GIRAFFE_HEX,
+    primaryMapping: GIRAFFE_HEX_MAIN,
+  },
+  Jaguar: {
+    keys: JAGUAR_KEYS,
+    mapping: JAGUAR_ROSETTE,
+    primaryMapping: JAGUAR_ROSETTE_MAIN,
+  },
+  Jester: {
+    keys: JESTER_KEYS,
+    mapping: HARLEQUIN_JESTER,
+    primaryMapping: HARLEQUIN_JESTER_MAIN,
+  },
+  Jewels: {
+    keys: JEWELS_KEYS,
+    mapping: JEWELS,
+    primaryMapping: JEWELS_MAIN,
+  },
+  Keel: {
+    keys: KEEL_KEYS,
+    mapping: KEEL,
+    primaryMapping: KEEL_MAIN,
+  },
+  Kumo: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Lace: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Larvae: {
+    keys: LARVAE_KEYS,
+    mapping: CATERPILLAR_LARVAE,
+    primaryMapping: CATERPILLAR_LARVAE_MAIN,
+  },
+  Loam: { keys: LOAM_KEYS, mapping: SOIL_LOAM, primaryMapping: SOIL_LOAM_MAIN },
+  Loop: { keys: LOOP_KEYS, mapping: ARC_LOOP, primaryMapping: ARC_LOOP_MAIN },
+  Mandibles: {
+    keys: MANDIBLES_KEYS,
+    mapping: MANDIBLES,
+    primaryMapping: MANDIBLES_MAIN,
+  },
+  Medusa: {
+    keys: MEDUSA_KEYS,
+    mapping: MEDUSA,
+    primaryMapping: MEDUSA_MAIN,
+  },
+  Monarch: {
+    keys: MONARCH_KEYS,
+    mapping: MONARCH,
+    primaryMapping: MONARCH_MAIN,
+  },
+  Morph: {
+    keys: MORPH_KEYS,
+    mapping: PYTHON_MORPH,
+    primaryMapping: PYTHON_MORPH_MAIN,
+  },
+  Mosaic: {
+    keys: MOSAIC_KEYS,
+    mapping: MOSAIC_BREAKUP,
+    primaryMapping: MOSAIC_BREAKUP_MAIN,
+  },
+  Myrid: {
+    keys: BOULDER_MYRID_KEYS,
+    mapping: BOULDER_MYRID,
+    primaryMapping: BOULDER_MYRID_MAIN,
+  },
+  Nudibranch: {
+    keys: NUDIBRANCH_KEYS,
+    mapping: NUDIBRANCH,
+    primaryMapping: NUDIBRANCH_MAIN,
+  },
+  Okapi: {
+    keys: OKAPI_KEYS,
+    mapping: OKAPI,
+    primaryMapping: OKAPI_MAIN,
+  },
+  Paisley: {
+    keys: FERN_PAISLEY_KEYS,
+    mapping: FERN_PAISLEY,
+    primaryMapping: FERN_PAISLEY_MAIN,
+  },
+  Paradise: {
+    keys: PARADISE_KEYS,
+    mapping: PARADISE,
+    primaryMapping: PARADISE_MAIN,
+  },
+  Parade: {
+    keys: PARADE_KEYS,
+    mapping: DISPLAY_PARADE,
+    primaryMapping: DISPLAY_PARADE_MAIN,
+  },
+  Peacock: {
+    keys: PEACOCK_KEYS,
+    mapping: PEACOCK,
+    primaryMapping: PEACOCK_MAIN,
+  },
+  Pinstripe: {
+    keys: PINSTRIPE_KEYS,
+    mapping: PINSTRIPE_TRAIL,
+    primaryMapping: PINSTRIPE_TRAIL_MAIN,
+  },
+  Points: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Polkadot: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Polypore: {
+    keys: POLYPORE_KEYS,
+    mapping: POLYPORE,
+    primaryMapping: POLYPORE_MAIN,
+  },
+  Poison: {
+    keys: POISON_KEYS,
+    mapping: POISON_TOXIN,
+    primaryMapping: POISON_TOXIN_MAIN,
+  },
+  Python: {
+    keys: PYTHON_KEYS,
+    mapping: PYTHON_MORPH,
+    primaryMapping: PYTHON_MORPH_MAIN,
+  },
+  Ribbon: {
+    keys: RIBBON_KEYS,
+    mapping: RIBBON_EEL,
+    primaryMapping: RIBBON_EEL_MAIN,
+  },
+  Rockbreaker: {
+    keys: ROCKBREAKER_KEYS,
+    mapping: ROCKBREAKER,
+    primaryMapping: ROCKBREAKER_MAIN,
+  },
+  Rosette: {
+    keys: ROSETTE_KEYS,
+    mapping: JAGUAR_ROSETTE,
+    primaryMapping: JAGUAR_ROSETTE_MAIN,
+  },
+  Runes: { keys: RUNES_KEYS, mapping: RUNES, primaryMapping: RUNES_MAIN },
+  Saddle: {
+    keys: SADDLE_KEYS,
+    mapping: BOA_SADDLE,
+    primaryMapping: BOA_SADDLE_MAIN,
+  },
+  Scales: { keys: SCALES_KEYS, mapping: SCALES, primaryMapping: SCALES_MAIN },
+  Scorpion: {
+    keys: SCORPION_KEYS,
+    mapping: SCORPION,
+    primaryMapping: SCORPION_MAIN,
+  },
+  Seraph: {
+    keys: SERAPH_KEYS,
+    mapping: CHERUB_SERAPH,
+    primaryMapping: CHERUB_SERAPH_MAIN,
+  },
+  Shark: {
+    keys: SHARK_KEYS,
+    mapping: SHARK,
+    primaryMapping: SHARK_MAIN,
+  },
+  Skeletal: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Skink: {
+    keys: SKINK_KEYS,
+    mapping: SKINK_SPINNER,
+    primaryMapping: SKINK_SPINNER_MAIN,
+  },
+  Slime: {
+    keys: SLIME_KEYS,
+    mapping: SLIME_SLUDGE,
+    primaryMapping: SLIME_SLUDGE_MAIN,
+  },
+  Sludge: {
+    keys: SLUDGE_KEYS,
+    mapping: SLIME_SLUDGE,
+    primaryMapping: SLIME_SLUDGE_MAIN,
+  },
+  Smirch: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Smoke: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Soil: { keys: SOIL_KEYS, mapping: SOIL_LOAM, primaryMapping: SOIL_LOAM_MAIN },
+  Spectre: {
+    keys: SPECTRE_KEYS,
+    mapping: SPECTRE,
+    primaryMapping: SPECTRE_MAIN,
+  },
+  Spinner: {
+    keys: SPINNER_KEYS,
+    mapping: SKINK_SPINNER,
+    primaryMapping: SKINK_SPINNER_MAIN,
+  },
+  Spores: {
+    keys: SPORES_KEYS,
+    mapping: SPORES,
+    primaryMapping: SPORES_MAIN,
+  },
+  Starfall: {
+    keys: STARFALL_KEYS,
+    mapping: STARFALL,
+    primaryMapping: STARFALL_MAIN,
+  },
+  Striation: {
+    keys: STRIATION_KEYS,
+    mapping: TAPIR_STRIATION,
+    primaryMapping: TAPIR_STRIATION_MAIN,
+  },
+  Tapir: {
+    keys: TAPIR_KEYS,
+    mapping: TAPIR_STRIATION,
+    primaryMapping: TAPIR_STRIATION_MAIN,
+  },
+  Thorns: {
+    keys: THORNS_KEYS,
+    mapping: THORNS,
+    primaryMapping: THORNS_MAIN,
+  },
+  Toxin: {
+    keys: TOXIN_KEYS,
+    mapping: POISON_TOXIN,
+    primaryMapping: POISON_TOXIN_MAIN,
+  },
+  Trail: {
+    keys: TRAIL_KEYS,
+    mapping: PINSTRIPE_TRAIL,
+    primaryMapping: PINSTRIPE_TRAIL_MAIN,
+  },
+  Trimmings: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Underbelly: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Weathered: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Wintercoat: {
+    keys: MONOCOLOR_TERTS_KEY,
+    mapping: MONOCOLOR_TERTS,
+    primaryMapping: MONOCOLOR_TERTS_MAIN,
+  },
+  Wish: { keys: WISH_KEYS, mapping: WISH, primaryMapping: WISH_MAIN },
+};
 
 export function getGeneColorList(
   color: Color_t,
   gene: Gene_t,
   category: GeneCategory_t,
 ): Array<GeneColorMapping_t> {
-  switch (gene) {
-    case "Basic":
-      if (category === "primary")
-        return BASIC_PRIMARY_KEYS.map((key) =>
-          makeMapping(key, color, BASIC, BASIC_MAIN),
-        );
-      else if (category === "secondary")
-        return BASIC_SECONDARY_KEYS.map((key) =>
-          makeMapping(key, color, BASIC, BASIC_MAIN),
-        );
-      else return []; // basic tertiary always does nothing
-    case "Bar":
-      return BAR_KEYS.map((key) =>
-        makeMapping(key, color, BAR_DAUB, BAR_DAUB_MAIN),
-      );
-    case "Daub":
-      return DAUB_KEYS.map((key) =>
-        makeMapping(key, color, BAR_DAUB, BAR_DAUB_MAIN),
-      );
-    case "Fade":
-      return FADE_KEYS.map((key) =>
-        makeMapping(key, color, FADE_BLEND, FADE_BLEND_MAIN),
-      );
-    case "Blend":
-      return BLEND_KEYS.map((key) =>
-        makeMapping(key, color, FADE_BLEND, FADE_BLEND_MAIN),
-      );
-    case "Flaunt":
-      return FLAUNT_KEYS.map((key) =>
-        makeMapping(key, color, FLAUNT_FLAIR, FLAUNT_FLAIR_MAIN),
-      );
-    case "Flair":
-      return FLAIR_KEYS.map((key) =>
-        makeMapping(key, color, FLAUNT_FLAIR, FLAUNT_FLAIR_MAIN),
-      );
-    case "Fern":
-    case "Paisley":
-      return FERN_PAISLEY_KEYS.map((key) =>
-        makeMapping(key, color, FERN_PAISLEY, FERN_PAISLEY_MAIN),
-      );
-    case "Boulder":
-    case "Myrid":
-      return BOULDER_MYRID_KEYS.map((key) =>
-        makeMapping(key, color, BOULDER_MYRID, BOULDER_MYRID_MAIN),
-      );
-    case "Caterpillar":
-      return CATERPILLAR_KEYS.map((key) =>
-        makeMapping(key, color, CATERPILLAR_LARVAE, CATERPILLAR_LARVAE_MAIN),
-      );
-    case "Larvae":
-      return LARVAE_KEYS.map((key) =>
-        makeMapping(key, color, CATERPILLAR_LARVAE, CATERPILLAR_LARVAE_MAIN),
-      );
-    case "Peacock":
-      return PEACOCK_KEYS.map((key) =>
-        makeMapping(key, color, PEACOCK, PEACOCK_MAIN),
-      );
-    case "Batty":
-      return BATTY_KEYS.map((key) =>
-        makeMapping(key, color, BATTY, BATTY_MAIN),
-      );
-    case "Boa":
-      return BOA_KEYS.map((key) =>
-        makeMapping(key, color, BOA_SADDLE, BOA_SADDLE_MAIN),
-      );
-    case "Saddle":
-      return SADDLE_KEYS.map((key) =>
-        makeMapping(key, color, BOA_SADDLE, BOA_SADDLE_MAIN),
-      );
-    case "Blaze":
-      return BLAZE_KEYS.map((key) =>
-        makeMapping(key, color, CINDER_BLAZE, CINDER_BLAZE_MAIN),
-      );
-    case "Cinder":
-      return CINDER_KEYS.map((key) =>
-        makeMapping(key, color, CINDER_BLAZE, CINDER_BLAZE_MAIN),
-      );
-    case "Harlequin":
-      return HARLEQUIN_KEYS.map((key) =>
-        makeMapping(key, color, HARLEQUIN_JESTER, HARLEQUIN_JESTER_MAIN),
-      );
-    case "Jester":
-      return JESTER_KEYS.map((key) =>
-        makeMapping(key, color, HARLEQUIN_JESTER, HARLEQUIN_JESTER_MAIN),
-      );
-    case "Chorus":
-      return CHORUS_KEYS.map((key) =>
-        makeMapping(key, color, CHORUS_CHOIR, CHORUS_CHOIR_MAIN),
-      );
-    case "Choir":
-      return CHOIR_KEYS.map((key) =>
-        makeMapping(key, color, CHORUS_CHOIR, CHORUS_CHOIR_MAIN),
-      );
-    case "Jaguar":
-      return JAGUAR_KEYS.map((key) =>
-        makeMapping(key, color, JAGUAR_ROSETTE, JAGUAR_ROSETTE_MAIN),
-      );
-    case "Rosette":
-      return ROSETTE_KEYS.map((key) =>
-        makeMapping(key, color, JAGUAR_ROSETTE, JAGUAR_ROSETTE_MAIN),
-      );
-    case "Pinstripe":
-      return PINSTRIPE_KEYS.map((key) =>
-        makeMapping(key, color, PINSTRIPE_TRAIL, PINSTRIPE_TRAIL_MAIN),
-      );
-    case "Trail":
-      return TRAIL_KEYS.map((key) =>
-        makeMapping(key, color, PINSTRIPE_TRAIL, PINSTRIPE_TRAIL_MAIN),
-      );
-    case "Ribbon":
-      return RIBBON_KEYS.map((key) =>
-        makeMapping(key, color, RIBBON_EEL, RIBBON_EEL_MAIN),
-      );
-    case "Eel":
-      return EEL_KEYS.map((key) =>
-        makeMapping(key, color, RIBBON_EEL, RIBBON_EEL_MAIN),
-      );
-    case "Tapir":
-      return TAPIR_KEYS.map((key) =>
-        makeMapping(key, color, TAPIR_STRIATION, TAPIR_STRIATION_MAIN),
-      );
-    case "Striation":
-      return STRIATION_KEYS.map((key) =>
-        makeMapping(key, color, TAPIR_STRIATION, TAPIR_STRIATION_MAIN),
-      );
-    case "Soil":
-      return SOIL_KEYS.map((key) =>
-        makeMapping(key, color, SOIL_LOAM, SOIL_LOAM_MAIN),
-      );
-    case "Loam":
-      return LOAM_KEYS.map((key) =>
-        makeMapping(key, color, SOIL_LOAM, SOIL_LOAM_MAIN),
-      );
-    case "Checkers":
-      return CHECKERS_KEYS.map((key) =>
-        makeMapping(key, color, CHECKERS_CHESS, CHECKERS_CHESS_MAIN),
-      );
-    case "Chess":
-      return CHESS_KEYS.map((key) =>
-        makeMapping(key, color, CHECKERS_CHESS, CHECKERS_CHESS_MAIN),
-      );
-    case "Arapaima":
-      return ARAPAIMA_KEYS.map((key) =>
-        makeMapping(key, color, ARAPAIMA_AROWANA, ARAPAIMA_AROWANA_MAIN),
-      );
-    case "Arowana":
-      return AROWANA_KEYS.map((key) =>
-        makeMapping(key, color, ARAPAIMA_AROWANA, ARAPAIMA_AROWANA_MAIN),
-      );
-    case "Arc":
-      return ARC_KEYS.map((key) =>
-        makeMapping(key, color, ARC_LOOP, ARC_LOOP_MAIN),
-      );
-    case "Loop":
-      return LOOP_KEYS.map((key) =>
-        makeMapping(key, color, ARC_LOOP, ARC_LOOP_MAIN),
-      );
-    case "Skink":
-      return SKINK_KEYS.map((key) =>
-        makeMapping(key, color, SKINK_SPINNER, SKINK_SPINNER_MAIN),
-      );
-    case "Spinner":
-      return SPINNER_KEYS.map((key) =>
-        makeMapping(key, color, SKINK_SPINNER, SKINK_SPINNER_MAIN),
-      );
-    case "Cherub":
-      return CHERUB_KEYS.map((key) =>
-        makeMapping(key, color, CHERUB_SERAPH, CHERUB_SERAPH_MAIN),
-      );
-    case "Seraph":
-      return SERAPH_KEYS.map((key) =>
-        makeMapping(key, color, CHERUB_SERAPH, CHERUB_SERAPH_MAIN),
-      );
-    case "Poison":
-      return POISON_KEYS.map((key) =>
-        makeMapping(key, color, POISON_TOXIN, POISON_TOXIN_MAIN),
-      );
-    case "Toxin":
-      return TOXIN_KEYS.map((key) =>
-        makeMapping(key, color, POISON_TOXIN, POISON_TOXIN_MAIN),
-      );
-    case "Slime":
-      return SLIME_KEYS.map((key) =>
-        makeMapping(key, color, SLIME_SLUDGE, SLIME_SLUDGE_MAIN),
-      );
-    case "Sludge":
-      return SLUDGE_KEYS.map((key) =>
-        makeMapping(key, color, SLIME_SLUDGE, SLIME_SLUDGE_MAIN),
-      );
-    case "Display":
-      return DISPLAY_KEYS.map((key) =>
-        makeMapping(key, color, DISPLAY_PARADE, DISPLAY_PARADE_MAIN),
-      );
-    case "Parade":
-      return PARADE_KEYS.map((key) =>
-        makeMapping(key, color, DISPLAY_PARADE, DISPLAY_PARADE_MAIN),
-      );
-    case "Clown":
-      return CLOWN_KEYS.map((key) =>
-        makeMapping(key, color, CLOWN_EYESPOTS, CLOWN_EYESPOTS_MAIN),
-      );
-    case "Eye Spots":
-      return EYESPOTS_KEYS.map((key) =>
-        makeMapping(key, color, CLOWN_EYESPOTS, CLOWN_EYESPOTS_MAIN),
-      );
-    case "Giraffe":
-      return GIRAFFE_KEYS.map((key) =>
-        makeMapping(key, color, GIRAFFE_HEX, GIRAFFE_HEX_MAIN),
-      );
-    case "Hex":
-      return HEX_KEYS.map((key) =>
-        makeMapping(key, color, GIRAFFE_HEX, GIRAFFE_HEX_MAIN),
-      );
-    case "Python":
-      return PYTHON_KEYS.map((key) =>
-        makeMapping(key, color, PYTHON_MORPH, PYTHON_MORPH_MAIN),
-      );
-    case "Morph":
-      return MORPH_KEYS.map((key) =>
-        makeMapping(key, color, PYTHON_MORPH, PYTHON_MORPH_MAIN),
-      );
-    case "Mosaic":
-      return MOSAIC_KEYS.map((key) =>
-        makeMapping(key, color, MOSAIC_BREAKUP, MOSAIC_BREAKUP_MAIN),
-      );
-    case "Breakup":
-      return BREAKUP_KEYS.map((key) =>
-        makeMapping(key, color, MOSAIC_BREAKUP, MOSAIC_BREAKUP_MAIN),
-      );
-    case "Underbelly":
-    case "Kumo":
-    case "Points":
-    case "Circuit":
-    case "Contour":
-    case "Smirch":
-    case "Smoke":
-    case "Darts":
-    case "Polkadot":
-    case "Trimmings":
-      return MONOCOLOR_TERTS_KEY.map((key) =>
-        makeMapping(key, color, MONOCOLOR_TERTS, MONOCOLOR_TERTS_MAIN),
-      );
-    default:
-      return [];
+  if (gene === "Basic") {
+    if (category === "primary")
+      return makeMapping(BASIC_PRIMARY_KEYS, color, BASIC, BASIC_MAIN);
+    else if (category === "secondary")
+      return makeMapping(BASIC_SECONDARY_KEYS, color, BASIC, BASIC_MAIN);
+    else return []; // basic tertiary always does nothing
   }
-}
-
-export function getMainColorMapping() {
-  return;
+  const data = geneMappings[gene];
+  if (!data) return [];
+  const { keys, mapping, primaryMapping } = data;
+  return makeMapping(keys, color, mapping, primaryMapping);
 }

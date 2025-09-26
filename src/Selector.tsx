@@ -49,7 +49,7 @@ function Selector<T extends string>(props: SelectorProps_i<T>) {
 
   const filteredOptions = props.search
     ? options.filter((option) =>
-        option.toLowerCase().includes(search.toLowerCase())
+        option.toLowerCase().includes(search.toLowerCase()),
       )
     : options;
 

@@ -22,7 +22,6 @@ import {
   ActionIcon,
   Button,
   Flex,
-  MantineStyleProp,
   Modal,
   Text,
   Tooltip,
@@ -96,7 +95,7 @@ function App() {
                 window
                   .open(
                     "https://github.com/Turese/dragon-color-guide",
-                    "_blank"
+                    "_blank",
                   )
                   ?.focus();
               }}
@@ -190,7 +189,7 @@ function App() {
               title="Eye Type"
               flexDirection="column"
               search
-              getImage={(pose) => <></>}
+              getImage={(_eyeType) => <></>} //TODO: Eye color palettes
             />
           </Flex>
           <Selector<Color_t>

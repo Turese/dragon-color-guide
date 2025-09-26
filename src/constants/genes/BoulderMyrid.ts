@@ -1,5 +1,3 @@
-import { Color_t, COLORS } from "../colors";
-
 export const BOULDER_MYRID = {
   Maize: {
     Highlight: "#FFFDEC",

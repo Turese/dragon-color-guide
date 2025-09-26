@@ -116,6 +116,7 @@ const MODERN_TERTIARY_IDS = {
   Circuit: 1,
   Contour: 13,
   Crackle: 6,
+  Darts: 484,
   Eclipse: 421,
   Filigree: 21,
   Firebreather: 161,
@@ -271,6 +272,7 @@ const ABERRATION_TERTIARY_IDS = {
   Spines: 206,
   Spores: 404,
   Stained: 207,
+  Starfall: 485,
   Thorns: 208,
   Thundercrack: 311,
   Thylacine: 93,
@@ -1499,6 +1501,7 @@ const VEILSPUN_TERTIARY_IDS = {
   Sparkle: 100,
   Spores: 409,
   Stained: 72,
+  Starfall: 486,
   Thorns: 68,
   Thundercrack: 312,
   Trickmurk: 270,
@@ -1512,6 +1515,7 @@ type AncientPrimaryGene_t =
   | keyof typeof AURABOA_PRIMARY_IDS
   | keyof typeof AETHER_PRIMARY_IDS
   | keyof typeof BANESCALE_PRIMARY_IDS
+  | keyof typeof CIRRUS_PRIMARY_IDS
   | keyof typeof DUSTHIDE_PRIMARY_IDS
   | keyof typeof EVERLUX_PRIMARY_IDS
   | keyof typeof GAOLER_PRIMARY_IDS
@@ -1524,6 +1528,7 @@ type AncientSecondaryGene_t =
   | keyof typeof AURABOA_SECONDARY_IDS
   | keyof typeof AETHER_SECONDARY_IDS
   | keyof typeof BANESCALE_SECONDARY_IDS
+  | keyof typeof CIRRUS_SECONDARY_IDS
   | keyof typeof DUSTHIDE_SECONDARY_IDS
   | keyof typeof EVERLUX_SECONDARY_IDS
   | keyof typeof GAOLER_SECONDARY_IDS
@@ -1536,6 +1541,7 @@ type AncientTertiaryGene_t =
   | keyof typeof AURABOA_TERTIARY_IDS
   | keyof typeof AETHER_TERTIARY_IDS
   | keyof typeof BANESCALE_TERTIARY_IDS
+  | keyof typeof CIRRUS_TERTIARY_IDS
   | keyof typeof DUSTHIDE_TERTIARY_IDS
   | keyof typeof EVERLUX_TERTIARY_IDS
   | keyof typeof GAOLER_TERTIARY_IDS
@@ -1550,6 +1556,7 @@ export type PrimaryGene_t =
 export type SecondaryGene_t =
   | keyof typeof MODERN_SECONDARY_IDS
   | AncientSecondaryGene_t;
+
 export type TertiaryGene_t =
   | keyof typeof MODERN_TERTIARY_IDS
   | AncientTertiaryGene_t;

@@ -83,7 +83,7 @@ export const DRAGONS: Dragon_t[] = Object.keys(DRAGON_IDS) as Dragon_t[];
 export function dragonHasGene(
   breed: Dragon_t,
   category: GeneCategory_t,
-  gene: Gene_t
+  gene: Gene_t,
 ): boolean {
   return gene in GENE_MAPPINGS[breed][category];
 }
