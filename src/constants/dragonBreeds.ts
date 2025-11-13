@@ -14,6 +14,7 @@ import {
   SANDSURGE_GENE_MAPPINGS,
   UNDERTIDE_GENE_MAPPINGS,
   VEILSPUN_GENE_MAPPINGS,
+  THORNTAIL_GENE_MAPPINGS,
 } from "./genes";
 
 export const DRAGON_IDS = {
@@ -40,6 +41,7 @@ export const DRAGON_IDS = {
   Skydancer: 13,
   Snapper: 9,
   Spiral: 7,
+  Thorntail: 29,
   Tundra: 6,
   Undertide: 21,
   Veilspun: 19,
@@ -70,6 +72,7 @@ export const GENE_MAPPINGS: Record<Dragon_t, GeneRecord_t> = {
   Skydancer: MODERN_GENE_MAPPINGS,
   Snapper: MODERN_GENE_MAPPINGS,
   Spiral: MODERN_GENE_MAPPINGS,
+  Thorntail: THORNTAIL_GENE_MAPPINGS,
   Tundra: MODERN_GENE_MAPPINGS,
   Undertide: UNDERTIDE_GENE_MAPPINGS,
   Veilspun: VEILSPUN_GENE_MAPPINGS,
