@@ -2,7 +2,7 @@
 
 ## About
 
-A UI for planning out a dragon's genes by assembling all possible gene palettes in one place.
+Helper tool for the online game Flight Rising. A UI for planning out a dragon's genes by assembling all possible gene palettes in one place.
 
 Try it [here](https://turese.github.io/dragon-color-guide/)!
 
