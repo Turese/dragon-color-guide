@@ -6,7 +6,11 @@ import Selector from "./Selector";
 import BreedImage from "./BreedImage";
 
 import GeneList, { LefthandGeneView, Swatch } from "./GeneList";
-import { generateScryLink } from "./helpers/scryLink";
+import {
+  generateColorGuideParameters,
+  generateScryLink,
+  readColorGuideParameters,
+} from "./helpers/scryLink";
 import {
   Age_t,
   Element_t,
@@ -32,17 +36,17 @@ import { useDisclosure } from "@mantine/hooks";
 import { InfoModal } from "./InfoModal";
 
 function App() {
-  const [pose, setPose] = React.useState<Pose_t>("Female");
-
-  const [age, setAge] = React.useState<Age_t>("Adult");
-
-  const [element, setElement] = React.useState<Element_t>("Wind");
-
-  const [eyeType, setEyeType] = React.useState<EyeType_t>("Common");
-
   const theme = useMantineTheme();
 
   const {
+    pose,
+    setPose,
+    age,
+    setAge,
+    element,
+    setElement,
+    eyeType,
+    setEyeType,
     primary,
     setPrimary,
     secondary,
@@ -56,19 +60,37 @@ function App() {
     setBreed,
   } = useDragonCtx();
 
-  const scryLink = generateScryLink({
-    primary,
-    secondary,
-    tertiary,
-    primaryGene,
-    secondaryGene,
-    tertiaryGene,
-    breed,
-    pose,
-    age,
-    element,
-    eyeType,
-  });
+  const primaryAvailable = dragonHasGene(breed, "primary", primaryGene);
+  const secondaryAvailable = dragonHasGene(breed, "secondary", secondaryGene);
+  const tertiaryAvailable = dragonHasGene(breed, "tertiary", tertiaryGene);
+
+  const canGenerateScryLink =
+    primaryAvailable && secondaryAvailable && tertiaryAvailable;
+
+  const accessScryLink = () => {
+    if (!canGenerateScryLink) return;
+
+    const parameterProps = {
+      primary,
+      secondary,
+      tertiary,
+      primaryGene,
+      secondaryGene,
+      tertiaryGene,
+      breed,
+      pose,
+      age,
+      element,
+      eyeType,
+    };
+
+    const newParameters = generateColorGuideParameters(parameterProps);
+    const url = new URL(window.location.href);
+    url.search = newParameters.toString();
+    window.history.replaceState({}, "", url.toString());
+
+    window.open(generateScryLink(parameterProps), "_blank")?.focus();
+  };
 
   const [opened, { open, close }] = useDisclosure(false); // for Info modal
 
@@ -205,7 +227,7 @@ function App() {
           <LefthandGeneView
             gene={primaryGene}
             palette={getGeneColorList(primary, primaryGene, "primary")}
-            isAvailable={dragonHasGene(breed, "primary", primaryGene)}
+            isAvailable={primaryAvailable}
           />
           <Selector<Color_t>
             options={COLORS}
@@ -220,7 +242,7 @@ function App() {
           <LefthandGeneView
             gene={secondaryGene}
             palette={getGeneColorList(secondary, secondaryGene, "secondary")}
-            isAvailable={dragonHasGene(breed, "secondary", secondaryGene)}
+            isAvailable={secondaryAvailable}
           />
           <Selector<Color_t>
             options={COLORS}
@@ -235,15 +257,13 @@ function App() {
           <LefthandGeneView
             gene={tertiaryGene}
             palette={getGeneColorList(tertiary, tertiaryGene, "tertiary")}
-            isAvailable={dragonHasGene(breed, "tertiary", tertiaryGene)}
+            isAvailable={tertiaryAvailable}
           />
           <Button
             variant="outline"
             fullWidth
-            onClick={() => {
-              if (scryLink) window.open(scryLink, "_blank")?.focus();
-            }}
-            disabled={!scryLink}
+            onClick={accessScryLink}
+            disabled={!canGenerateScryLink}
           >
             View scry
           </Button>
