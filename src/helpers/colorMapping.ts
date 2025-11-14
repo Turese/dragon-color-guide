@@ -297,6 +297,18 @@ import {
 } from "../constants/genes/Firebreather";
 import { FRILLS, FRILLS_KEYS, FRILLS_MAIN } from "../constants/genes/Frills";
 import { CHITIN, CHITIN_KEYS, CHITIN_MAIN } from "../constants/genes/Chitin";
+import {
+  MARLIN_KEYS,
+  SAILFISH_KEYS,
+  SAILFISH_MARLIN,
+  SAILFISH_MARLIN_MAIN,
+} from "../constants/genes/SailfishMarlin";
+import {
+  RAGGED_KEYS,
+  RAGGED_TEAR,
+  RAGGED_TEAR_MAIN,
+  TEAR_KEYS,
+} from "../constants/genes/RaggedTear";
 
 export type PrimaryMapping_t = Record<PrimaryGene_t, string[] | null>;
 export type SecondaryMapping_t = Record<SecondaryGene_t, string[] | null>;
@@ -599,6 +611,11 @@ const geneMappings: Partial<Record<Gene_t, GeneInfo_t>> = {
     mapping: MANDIBLES,
     primaryMapping: MANDIBLES_MAIN,
   },
+  Marlin: {
+    keys: MARLIN_KEYS,
+    mapping: SAILFISH_MARLIN,
+    primaryMapping: SAILFISH_MARLIN_MAIN,
+  },
   Medusa: {
     keys: MEDUSA_KEYS,
     mapping: MEDUSA,
@@ -684,6 +701,11 @@ const geneMappings: Partial<Record<Gene_t, GeneInfo_t>> = {
     mapping: PYTHON_MORPH,
     primaryMapping: PYTHON_MORPH_MAIN,
   },
+  Ragged: {
+    keys: RAGGED_KEYS,
+    mapping: RAGGED_TEAR,
+    primaryMapping: RAGGED_TEAR_MAIN,
+  },
   Ribbon: {
     keys: RIBBON_KEYS,
     mapping: RIBBON_EEL,
@@ -704,6 +726,11 @@ const geneMappings: Partial<Record<Gene_t, GeneInfo_t>> = {
     keys: SADDLE_KEYS,
     mapping: BOA_SADDLE,
     primaryMapping: BOA_SADDLE_MAIN,
+  },
+  Sailfish: {
+    keys: SAILFISH_KEYS,
+    mapping: SAILFISH_MARLIN,
+    primaryMapping: SAILFISH_MARLIN_MAIN,
   },
   Scales: { keys: SCALES_KEYS, mapping: SCALES, primaryMapping: SCALES_MAIN },
   Scorpion: {
@@ -781,6 +808,11 @@ const geneMappings: Partial<Record<Gene_t, GeneInfo_t>> = {
     keys: TAPIR_KEYS,
     mapping: TAPIR_STRIATION,
     primaryMapping: TAPIR_STRIATION_MAIN,
+  },
+  Tear: {
+    keys: TEAR_KEYS,
+    mapping: RAGGED_TEAR,
+    primaryMapping: RAGGED_TEAR_MAIN,
   },
   Thorns: {
     keys: THORNS_KEYS,
